@@ -32,7 +32,7 @@ const galleryItems = [
     title: "House Cleaning",
     description:
       "Complete residential cleaning for occupied and vacant homes.",
-    image: "/images/hero/house-cleaning/1.jpg",
+    image: "/images/hero/house-Cleaning/1.jpg",
   },
   {
     title: "Mattress Cleaning",
@@ -62,7 +62,7 @@ const galleryItems = [
     title: "Fumigation Services",
     description:
       "Professional pest control and fumigation services.",
-    image: "/images/hero/fumigation/4.jpg",
+    image: "/images/hero/Fumigation/4.jpg",
   },
 ];
 
