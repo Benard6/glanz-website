@@ -1,0 +1,31 @@
+import Script from "next/script";
+
+export default function ServiceSchema({
+  name,
+  description,
+}: {
+  name: string;
+  description: string;
+}) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: name,
+    provider: {
+      "@type": "LocalBusiness",
+      name: "Glanz Facility Services Limited",
+      url: "https://www.glanzkenya.co.ke",
+    },
+    areaServed: "Nairobi",
+    description: description,
+  };
+
+  return (
+    <Script
+      id="service-schema"
+      type="application/ld+json"
+      strategy="afterInteractive"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}

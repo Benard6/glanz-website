@@ -1,0 +1,51 @@
+import Script from "next/script";
+
+export default function FAQSchema() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "How much does sofa cleaning cost in Nairobi?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Sofa cleaning in Nairobi starts from around KES 1,500 depending on size and condition.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Do you offer mattress cleaning services?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes, we provide deep mattress cleaning services that remove stains, dust mites, and odors.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Which areas do you serve?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "We serve Nairobi, Kiambu, Thika, Ruiru, and surrounding areas.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Do you offer monthly cleaning contracts?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes, we offer monthly and contractual cleaning services for offices and estates.",
+        },
+      },
+    ],
+  };
+
+  return (
+    <Script
+      id="faq-schema"
+      type="application/ld+json"
+      strategy="afterInteractive"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
