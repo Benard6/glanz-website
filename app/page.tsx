@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import WhatsappFloat from "../components/WhatsappFloat";
@@ -101,11 +102,13 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div>
-              <img
+            <div className="relative h-[420px] w-full">
+              <Image
                 src="/images/hero/Profile/2.jpg"
                 alt="Glanz Facility Services Team"
-                className="rounded-2xl object-cover w-full h-[420px] shadow-lg"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="rounded-2xl object-cover shadow-lg"
               />
             </div>
 
@@ -122,9 +125,9 @@ export default function HomePage() {
 
             <div className="mt-10 grid gap-6 md:grid-cols-3">
 
-              <img src="/images/hero/cabro-cleaning/1.jpg" className="rounded-2xl h-64 w-full object-cover" />
-              <img src="/images/hero/cabro-cleaning/7.jpg" className="rounded-2xl h-64 w-full object-cover" />
-              <img src="/images/hero/tile-cleaning/1.jpg" className="rounded-2xl h-64 w-full object-cover" />
+              <div className="relative h-64 w-full"><Image src="/images/hero/cabro-cleaning/1.jpg" alt="Cabro cleaning Nairobi" fill sizes="(max-width: 768px) 100vw, 33vw" className="rounded-2xl object-cover" /></div>
+              <div className="relative h-64 w-full"><Image src="/images/hero/cabro-cleaning/7.jpg" alt="Cabro cleaning Kenya" fill sizes="(max-width: 768px) 100vw, 33vw" className="rounded-2xl object-cover" /></div>
+              <div className="relative h-64 w-full"><Image src="/images/hero/tile-cleaning/1.jpg" alt="Tile cleaning Nairobi" fill sizes="(max-width: 768px) 100vw, 33vw" className="rounded-2xl object-cover" /></div>
 
             </div>
 

@@ -1,17 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import type { ChangeEvent, SyntheticEvent } from "react";
 import { useSearchParams } from "next/navigation";
 
 export default function QuoteClient() {
   const searchParams = useSearchParams();
-  const [loading, setLoading] = useState(false);
 
   const [form, setForm] = useState({
     name: "",
     phone: "",
     location: "",
-    service: "Sofa Cleaning",
+    service: searchParams.get("service") ?? "Sofa Cleaning",
     message: "",
   });
 
@@ -28,23 +28,12 @@ export default function QuoteClient() {
     "Post Construction Cleaning",
   ];
 
-  useEffect(() => {
-    const serviceFromUrl = searchParams.get("service");
-    if (serviceFromUrl) {
-      setForm((prev) => ({
-        ...prev,
-        service: serviceFromUrl,
-      }));
-    }
-  }, [searchParams]);
-
-  const handleChange = (e: any) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
 
     const message = `
 *GLANZ FACILITY SERVICES - QUOTE REQUEST*
@@ -61,11 +50,7 @@ ${form.message}
     `;
 
     const url = `https://wa.me/254759993502?text=${encodeURIComponent(message)}`;
-
-    setTimeout(() => {
-      window.open(url, "_blank");
-      setLoading(false);
-    }, 600);
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -80,9 +65,9 @@ ${form.message}
 
         <form onSubmit={handleSubmit} className="space-y-4">
 
-          <input name="name" placeholder="Full Name" required onChange={handleChange} className="w-full rounded-xl border p-3" />
-          <input name="phone" placeholder="Phone Number" required onChange={handleChange} className="w-full rounded-xl border p-3" />
-          <input name="location" placeholder="Location (e.g. Westlands, Nairobi)" required onChange={handleChange} className="w-full rounded-xl border p-3" />
+          <input name="name" value={form.name} placeholder="Full Name" required onChange={handleChange} className="w-full rounded-xl border p-3" />
+          <input name="phone" value={form.phone} placeholder="Phone Number" required onChange={handleChange} className="w-full rounded-xl border p-3" />
+          <input name="location" value={form.location} placeholder="Location (e.g. Westlands, Nairobi)" required onChange={handleChange} className="w-full rounded-xl border p-3" />
 
           <select name="service" value={form.service} onChange={handleChange} className="w-full rounded-xl border p-3">
             {services.map((s) => (
@@ -90,10 +75,10 @@ ${form.message}
             ))}
           </select>
 
-          <textarea name="message" rows={4} placeholder="Describe your cleaning needs..." onChange={handleChange} className="w-full rounded-xl border p-3" />
+          <textarea name="message" value={form.message} rows={4} placeholder="Describe your cleaning needs..." onChange={handleChange} className="w-full rounded-xl border p-3" />
 
-          <button type="submit" disabled={loading} className="w-full rounded-xl bg-slate-900 py-4 font-semibold text-white hover:bg-slate-800">
-            {loading ? "Sending..." : "Send via WhatsApp"}
+          <button type="submit" className="w-full rounded-xl bg-slate-900 py-4 font-semibold text-white hover:bg-slate-800">
+            Send via WhatsApp
           </button>
 
         </form>

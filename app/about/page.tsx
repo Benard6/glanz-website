@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import WhatsappFloat from "../../components/WhatsappFloat";
@@ -25,11 +26,13 @@ export default function AboutPage() {
 
             {/* IMAGE */}
             {/* IMAGE */}
-<div className="rounded-2xl overflow-hidden shadow-sm border aspect-[4/3]">
-  <img
+<div className="relative rounded-2xl overflow-hidden shadow-sm border aspect-[4/3]">
+  <Image
     src="/images/hero/Profile/1.jpg"
     alt="Glanz Facility Services Team"
-    className="w-full h-full object-cover"
+    fill
+    sizes="(max-width: 1024px) 100vw, 50vw"
+    className="object-cover"
   />
 </div>
             {/* TEXT */}
