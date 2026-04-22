@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -48,7 +49,7 @@ export default function Navbar() {
       <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
 
         {/* LOGO */}
-        <a href="/" onClick={closeAll} className="flex items-center gap-3">
+        <Link href="/" onClick={closeAll} className="flex items-center gap-3">
 
           <Image
             src="/images/hero/Logo/glanz_facility_services_logo-removebg-preview.png"
@@ -66,12 +67,12 @@ export default function Navbar() {
             </p>
           </div>
 
-        </a>
+        </Link>
 
         {/* DESKTOP MENU */}
         <nav className="hidden md:flex items-center gap-8 text-slate-800 font-medium">
 
-          <a href="/" className="hover:text-blue-600 transition">Home</a>
+          <Link href="/" className="hover:text-blue-600 transition">Home</Link>
 
           {/* CLEANING */}
           <div className="relative">
@@ -164,7 +165,7 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="md:hidden border-t bg-white p-4 space-y-3">
 
-          <a href="/" onClick={closeAll}>Home</a>
+          <Link href="/" onClick={closeAll}>Home</Link>
 
           <details>
             <summary className="font-semibold">Cleaning</summary>
