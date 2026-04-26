@@ -20,7 +20,7 @@ export default function Navbar() {
     setActiveMenu((prev) => (prev === menu ? null : menu));
   };
 
-  // Close desktop dropdown on outside click
+  // Close dropdown on outside click (desktop)
   useEffect(() => {
     const handleClick = () => setActiveMenu(null);
     window.addEventListener("click", handleClick);
@@ -53,7 +53,7 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <header className="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
 
       {/* TOP BAR */}
       <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
@@ -187,14 +187,17 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* OVERLAY (APPLE STYLE BLUR) */}
+      {/* OVERLAY */}
       {mobileOpen && (
-  <div className="md:hidden bg-white border-t border-gray-200 px-4 py-4 space-y-3 z-[9999]">
-      )
+        <div
+          onClick={closeAll}
+          className="fixed inset-0 bg-black/40 z-[9998]"
+        />
+      )}
 
-      {/* MOBILE DRAWER (APPLE STYLE) */}
+      {/* MOBILE DRAWER */}
       <div
-        className={`fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white border-l border-slate-200 z-[9999] shadow-2xl transform transition-transform duration-300 ${
+        className={`fixed top-0 right-0 h-full w-[85%] max-w-sm bg-gray-200 border-l border-slate-300 z-[9999] shadow-2xl transform transition-transform duration-300 ${
           mobileOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -225,7 +228,7 @@ export default function Navbar() {
                   key={l.name}
                   href={l.href}
                   onClick={closeAll}
-                  className="border border-slate-100 rounded-xl px-4 py-3 bg-slate-50"
+                  className="border border-slate-300 rounded-xl px-4 py-3 bg-white"
                 >
                   {l.name}
                 </Link>
@@ -248,7 +251,7 @@ export default function Navbar() {
                   key={l.name}
                   href={l.href}
                   onClick={closeAll}
-                  className="border border-slate-100 rounded-xl px-4 py-3 bg-slate-50"
+                  className="border border-slate-300 rounded-xl px-4 py-3 bg-white"
                 >
                   {l.name}
                 </Link>
@@ -271,7 +274,7 @@ export default function Navbar() {
                   key={l.name}
                   href={l.href}
                   onClick={closeAll}
-                  className="border border-slate-100 rounded-xl px-4 py-3 bg-slate-50"
+                  className="border border-slate-300 rounded-xl px-4 py-3 bg-white"
                 >
                   {l.name}
                 </Link>
