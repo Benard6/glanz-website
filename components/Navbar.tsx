@@ -6,6 +6,7 @@ import Link from "next/link";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+
   const [activeMenu, setActiveMenu] = useState<
     "cleaning" | "fumigation" | "renovation" | null
   >(null);
@@ -19,7 +20,7 @@ export default function Navbar() {
     setActiveMenu((prev) => (prev === menu ? null : menu));
   };
 
-  // Close dropdown when clicking outside (desktop safety)
+  // Close desktop dropdown on outside click
   useEffect(() => {
     const handleClick = () => setActiveMenu(null);
     window.addEventListener("click", handleClick);
@@ -52,7 +53,7 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b shadow-sm">
+    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
 
       {/* TOP BAR */}
       <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
@@ -62,8 +63,8 @@ export default function Navbar() {
           <Image
             src="/images/hero/Logo/glanz_facility_services_logo-removebg-preview.png"
             alt="Glanz Facility Services"
-            width={65}
-            height={65}
+            width={60}
+            height={60}
           />
           <div>
             <p className="text-lg font-bold text-slate-900">
@@ -87,19 +88,19 @@ export default function Navbar() {
                 e.stopPropagation();
                 toggleMenu("cleaning");
               }}
-              className="flex items-center gap-1"
+              className="flex items-center gap-1 hover:text-blue-600"
             >
               Cleaning <span className="text-xs">▼</span>
             </button>
 
             {activeMenu === "cleaning" && (
-              <div className="absolute top-8 left-0 w-72 bg-white border rounded-xl shadow-lg p-2 z-50">
+              <div className="absolute top-8 left-0 w-72 bg-white border border-slate-200 rounded-xl shadow-xl p-2 z-50">
                 {cleaningLinks.map((l) => (
                   <Link
                     key={l.name}
                     href={l.href}
                     onClick={closeAll}
-                    className="block px-4 py-2 text-sm hover:bg-blue-50"
+                    className="block px-4 py-2 text-sm hover:bg-blue-50 rounded-lg"
                   >
                     {l.name}
                   </Link>
@@ -115,19 +116,19 @@ export default function Navbar() {
                 e.stopPropagation();
                 toggleMenu("fumigation");
               }}
-              className="flex items-center gap-1"
+              className="flex items-center gap-1 hover:text-blue-600"
             >
               Fumigation <span className="text-xs">▼</span>
             </button>
 
             {activeMenu === "fumigation" && (
-              <div className="absolute top-8 left-0 w-72 bg-white border rounded-xl shadow-lg p-2 z-50">
+              <div className="absolute top-8 left-0 w-72 bg-white border border-slate-200 rounded-xl shadow-xl p-2 z-50">
                 {fumigationLinks.map((l) => (
                   <Link
                     key={l.name}
                     href={l.href}
                     onClick={closeAll}
-                    className="block px-4 py-2 text-sm hover:bg-blue-50"
+                    className="block px-4 py-2 text-sm hover:bg-blue-50 rounded-lg"
                   >
                     {l.name}
                   </Link>
@@ -143,19 +144,19 @@ export default function Navbar() {
                 e.stopPropagation();
                 toggleMenu("renovation");
               }}
-              className="flex items-center gap-1"
+              className="flex items-center gap-1 hover:text-blue-600"
             >
               Renovation <span className="text-xs">▼</span>
             </button>
 
             {activeMenu === "renovation" && (
-              <div className="absolute top-8 left-0 w-72 bg-white border rounded-xl shadow-lg p-2 z-50">
+              <div className="absolute top-8 left-0 w-72 bg-white border border-slate-200 rounded-xl shadow-xl p-2 z-50">
                 {renovationLinks.map((l) => (
                   <Link
                     key={l.name}
                     href={l.href}
                     onClick={closeAll}
-                    className="block px-4 py-2 text-sm hover:bg-blue-50"
+                    className="block px-4 py-2 text-sm hover:bg-blue-50 rounded-lg"
                   >
                     {l.name}
                   </Link>
@@ -186,17 +187,17 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* MOBILE OVERLAY */}
+      {/* OVERLAY (APPLE STYLE BLUR) */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-[9998]"
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[9998]"
           onClick={closeAll}
         />
       )}
 
-      {/* MOBILE DRAWER */}
+      {/* MOBILE DRAWER (APPLE STYLE) */}
       <div
-        className={`fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white z-[9999] shadow-2xl transition-transform duration-300 ${
+        className={`fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white border-l border-slate-200 z-[9999] shadow-2xl transform transition-transform duration-300 ${
           mobileOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -204,7 +205,7 @@ export default function Navbar() {
 
           {/* HEADER */}
           <div className="flex justify-between items-center border-b pb-3">
-            <span className="font-bold">Menu</span>
+            <span className="font-semibold text-lg">Menu</span>
             <button onClick={closeAll} className="text-xl">✕</button>
           </div>
 
@@ -213,7 +214,10 @@ export default function Navbar() {
           </Link>
 
           {/* CLEANING */}
-          <button onClick={() => toggleMenu("cleaning")} className="w-full text-left py-2 flex justify-between">
+          <button
+            onClick={() => toggleMenu("cleaning")}
+            className="w-full flex justify-between py-2"
+          >
             Cleaning <span>▼</span>
           </button>
 
@@ -224,7 +228,7 @@ export default function Navbar() {
                   key={l.name}
                   href={l.href}
                   onClick={closeAll}
-                  className="border rounded-lg px-4 py-3 bg-slate-50"
+                  className="border border-slate-100 rounded-xl px-4 py-3 bg-slate-50"
                 >
                   {l.name}
                 </Link>
@@ -233,7 +237,10 @@ export default function Navbar() {
           )}
 
           {/* FUMIGATION */}
-          <button onClick={() => toggleMenu("fumigation")} className="w-full text-left py-2 flex justify-between">
+          <button
+            onClick={() => toggleMenu("fumigation")}
+            className="w-full flex justify-between py-2"
+          >
             Fumigation <span>▼</span>
           </button>
 
@@ -244,7 +251,7 @@ export default function Navbar() {
                   key={l.name}
                   href={l.href}
                   onClick={closeAll}
-                  className="border rounded-lg px-4 py-3 bg-slate-50"
+                  className="border border-slate-100 rounded-xl px-4 py-3 bg-slate-50"
                 >
                   {l.name}
                 </Link>
@@ -253,7 +260,10 @@ export default function Navbar() {
           )}
 
           {/* RENOVATION */}
-          <button onClick={() => toggleMenu("renovation")} className="w-full text-left py-2 flex justify-between">
+          <button
+            onClick={() => toggleMenu("renovation")}
+            className="w-full flex justify-between py-2"
+          >
             Renovation <span>▼</span>
           </button>
 
@@ -264,7 +274,7 @@ export default function Navbar() {
                   key={l.name}
                   href={l.href}
                   onClick={closeAll}
-                  className="border rounded-lg px-4 py-3 bg-slate-50"
+                  className="border border-slate-100 rounded-xl px-4 py-3 bg-slate-50"
                 >
                   {l.name}
                 </Link>
@@ -286,10 +296,11 @@ export default function Navbar() {
 
           <a
             href="https://wa.me/254759993502"
-            className="block bg-green-500 text-white text-center py-2 rounded-xl mt-4"
+            className="block bg-green-500 text-white text-center py-3 rounded-xl mt-4"
           >
             WhatsApp
           </a>
+
         </div>
       </div>
     </header>
