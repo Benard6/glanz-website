@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -14,12 +14,6 @@ export default function Navbar() {
     setMobileOpen(false);
     setActiveMenu(null);
   };
-
-  useEffect(() => {
-    const handleClickOutside = () => setActiveMenu(null);
-    window.addEventListener("click", handleClickOutside);
-    return () => window.removeEventListener("click", handleClickOutside);
-  }, []);
 
   const toggleMenu = (menu: "cleaning" | "fumigation" | "renovation") => {
     setActiveMenu((prev) => (prev === menu ? null : menu));
@@ -74,10 +68,9 @@ export default function Navbar() {
 
         {/* DESKTOP MENU */}
         <nav className="hidden md:flex items-center gap-8 text-slate-800 font-medium">
-
           <Link href="/" className="hover:text-blue-600">Home</Link>
 
-          {/* Cleaning */}
+          {/* CLEANING */}
           <div className="relative">
             <button onClick={() => toggleMenu("cleaning")}>
               Cleaning ▼
@@ -99,7 +92,7 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Fumigation */}
+          {/* FUMIGATION */}
           <div className="relative">
             <button onClick={() => toggleMenu("fumigation")}>
               Fumigation ▼
@@ -121,7 +114,7 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Renovation */}
+          {/* RENOVATION */}
           <div className="relative">
             <button onClick={() => toggleMenu("renovation")}>
               Renovation ▼
@@ -171,10 +164,10 @@ export default function Navbar() {
 
           <Link href="/" onClick={closeAll}>Home</Link>
 
+          {/* CLEANING */}
           <button onClick={() => toggleMenu("cleaning")} className="block">
             Cleaning
           </button>
-
           {activeMenu === "cleaning" && (
             <div className="pl-4 space-y-2">
               {cleaningLinks.map((link) => (
@@ -185,10 +178,10 @@ export default function Navbar() {
             </div>
           )}
 
+          {/* FUMIGATION */}
           <button onClick={() => toggleMenu("fumigation")} className="block">
             Fumigation
           </button>
-
           {activeMenu === "fumigation" && (
             <div className="pl-4 space-y-2">
               {fumigationLinks.map((link) => (
@@ -199,10 +192,10 @@ export default function Navbar() {
             </div>
           )}
 
+          {/* RENOVATION */}
           <button onClick={() => toggleMenu("renovation")} className="block">
             Renovation
           </button>
-
           {activeMenu === "renovation" && (
             <div className="pl-4 space-y-2">
               {renovationLinks.map((link) => (
