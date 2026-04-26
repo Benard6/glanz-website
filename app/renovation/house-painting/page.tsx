@@ -12,7 +12,7 @@ export default function HousePaintingPage() {
         {/* HERO */}
         <section className="relative h-[350px]">
           <Image
-            src="/images/hero/cabro-repaint/IMG_1034.JPEG"
+            src="/images/hero/cabro-repaint/IMG_1034.jpeg"
             alt="House Painting"
             fill
             className="object-cover"

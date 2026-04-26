@@ -12,7 +12,7 @@ export default function CabroInstallationPage() {
         {/* HERO */}
         <section className="relative h-[350px]">
           <Image
-            src="/images/hero/cabro-repaint/IMG_1034.JPEG"
+            src="/images/hero/cabro-repaint/IMG_1034.jpeg"
             alt="Cabro Installation"
             fill
             className="object-cover"
