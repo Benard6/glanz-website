@@ -21,6 +21,10 @@ export default function Navbar() {
     return () => window.removeEventListener("click", handleClickOutside);
   }, []);
 
+  const toggleMenu = (menu: "cleaning" | "fumigation" | "renovation") => {
+    setActiveMenu((prev) => (prev === menu ? null : menu));
+  };
+
   const cleaningLinks = [
     { name: "All Cleaning", href: "/services" },
     { name: "Sofa Cleaning", href: "/services/sofa-cleaning" },
@@ -46,10 +50,6 @@ export default function Navbar() {
     { name: "House Painting", href: "/renovation/house-painting" },
   ];
 
-  const toggleMenu = (menu: "cleaning" | "fumigation" | "renovation") => {
-    setActiveMenu((prev) => (prev === menu ? null : menu));
-  };
-
   return (
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 shadow-sm">
       <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
@@ -62,7 +62,6 @@ export default function Navbar() {
             width={65}
             height={65}
           />
-
           <div>
             <p className="text-lg font-bold text-slate-900">
               Glanz Facility Services Ltd
@@ -78,12 +77,9 @@ export default function Navbar() {
 
           <Link href="/" className="hover:text-blue-600">Home</Link>
 
-          {/* CLEANING */}
+          {/* Cleaning */}
           <div className="relative">
-            <button
-              onClick={() => toggleMenu("cleaning")}
-              onMouseEnter={() => setActiveMenu("cleaning")}
-            >
+            <button onClick={() => toggleMenu("cleaning")}>
               Cleaning ▼
             </button>
 
@@ -103,12 +99,9 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* FUMIGATION */}
+          {/* Fumigation */}
           <div className="relative">
-            <button
-              onClick={() => toggleMenu("fumigation")}
-              onMouseEnter={() => setActiveMenu("fumigation")}
-            >
+            <button onClick={() => toggleMenu("fumigation")}>
               Fumigation ▼
             </button>
 
@@ -128,12 +121,9 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* RENOVATION */}
+          {/* Renovation */}
           <div className="relative">
-            <button
-              onClick={() => toggleMenu("renovation")}
-              onMouseEnter={() => setActiveMenu("renovation")}
-            >
+            <button onClick={() => toggleMenu("renovation")}>
               Renovation ▼
             </button>
 
@@ -156,10 +146,9 @@ export default function Navbar() {
           <Link href="/blog">Blog</Link>
           <Link href="/gallery">Gallery</Link>
           <Link href="/contact">Contact</Link>
-
         </nav>
 
-        {/* CTA */}
+        {/* CTA (desktop) */}
         <a
           href="https://wa.me/254759993502"
           className="hidden md:block bg-green-500 text-white px-4 py-2 rounded-xl"
@@ -167,7 +156,75 @@ export default function Navbar() {
           WhatsApp
         </a>
 
+        {/* MOBILE BUTTON */}
+        <button
+          className="md:hidden text-3xl"
+          onClick={() => setMobileOpen(!mobileOpen)}
+        >
+          ☰
+        </button>
       </div>
+
+      {/* MOBILE MENU */}
+      {mobileOpen && (
+        <div className="md:hidden bg-white border-t px-6 py-4 space-y-4 text-slate-800 font-medium">
+
+          <Link href="/" onClick={closeAll}>Home</Link>
+
+          <button onClick={() => toggleMenu("cleaning")} className="block">
+            Cleaning
+          </button>
+
+          {activeMenu === "cleaning" && (
+            <div className="pl-4 space-y-2">
+              {cleaningLinks.map((link) => (
+                <Link key={link.name} href={link.href} onClick={closeAll}>
+                  {link.name}
+                </Link>
+              ))}
+            </div>
+          )}
+
+          <button onClick={() => toggleMenu("fumigation")} className="block">
+            Fumigation
+          </button>
+
+          {activeMenu === "fumigation" && (
+            <div className="pl-4 space-y-2">
+              {fumigationLinks.map((link) => (
+                <Link key={link.name} href={link.href} onClick={closeAll}>
+                  {link.name}
+                </Link>
+              ))}
+            </div>
+          )}
+
+          <button onClick={() => toggleMenu("renovation")} className="block">
+            Renovation
+          </button>
+
+          {activeMenu === "renovation" && (
+            <div className="pl-4 space-y-2">
+              {renovationLinks.map((link) => (
+                <Link key={link.name} href={link.href} onClick={closeAll}>
+                  {link.name}
+                </Link>
+              ))}
+            </div>
+          )}
+
+          <Link href="/blog" onClick={closeAll}>Blog</Link>
+          <Link href="/gallery" onClick={closeAll}>Gallery</Link>
+          <Link href="/contact" onClick={closeAll}>Contact</Link>
+
+          <a
+            href="https://wa.me/254759993502"
+            className="block bg-green-500 text-white px-4 py-2 rounded-xl text-center"
+          >
+            WhatsApp
+          </a>
+        </div>
+      )}
     </header>
   );
 }
