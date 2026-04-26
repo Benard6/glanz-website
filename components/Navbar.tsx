@@ -11,13 +11,13 @@ export default function Navbar() {
     "cleaning" | "fumigation" | "renovation" | null
   >(null);
 
-  const toggleMenu = (menu: "cleaning" | "fumigation" | "renovation") => {
-    setActiveMenu((prev) => (prev === menu ? null : menu));
-  };
-
   const closeAll = () => {
     setMobileOpen(false);
     setActiveMenu(null);
+  };
+
+  const toggleMenu = (menu: "cleaning" | "fumigation" | "renovation") => {
+    setActiveMenu((prev) => (prev === menu ? null : menu));
   };
 
   const cleaningLinks = [
@@ -27,6 +27,9 @@ export default function Navbar() {
     { name: "House Cleaning", href: "/services/house-cleaning" },
     { name: "Cabro Cleaning", href: "/services/cabro-cleaning" },
     { name: "Office Cleaning", href: "/commercial/office-cleaning" },
+    { name: "Post Construction", href: "/post-construction-cleaning" },
+    { name: "Window Cleaning", href: "/window-cleaning" },
+    { name: "Tile Cleaning", href: "/tile-cleaning" },
   ];
 
   const fumigationLinks = [
@@ -44,6 +47,8 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b shadow-sm">
+
+      {/* TOP BAR */}
       <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
 
         {/* LOGO */}
@@ -55,7 +60,9 @@ export default function Navbar() {
             height={65}
           />
           <div>
-            <p className="text-lg font-bold">Glanz Facility Services Ltd</p>
+            <p className="text-lg font-bold text-slate-900">
+              Glanz Facility Services Ltd
+            </p>
             <p className="text-xs text-slate-500">
               Cleaning & Surface Restoration Experts
             </p>
@@ -70,13 +77,11 @@ export default function Navbar() {
           {/* CLEANING */}
           <div className="relative group">
             <div className="flex items-center gap-1 cursor-pointer">
-              <span>Cleaning</span>
-              <span className="text-xs">▼</span>
+              Cleaning <span className="text-xs">▼</span>
             </div>
-
             <div className="absolute hidden group-hover:block top-8 left-0 w-72 bg-white border rounded-xl shadow-lg p-2">
               {cleaningLinks.map((l) => (
-                <Link key={l.name} href={l.href} className="block px-4 py-2 hover:bg-blue-50 text-sm">
+                <Link key={l.name} href={l.href} className="block px-4 py-2 text-sm hover:bg-blue-50">
                   {l.name}
                 </Link>
               ))}
@@ -86,13 +91,11 @@ export default function Navbar() {
           {/* FUMIGATION */}
           <div className="relative group">
             <div className="flex items-center gap-1 cursor-pointer">
-              <span>Fumigation</span>
-              <span className="text-xs">▼</span>
+              Fumigation <span className="text-xs">▼</span>
             </div>
-
             <div className="absolute hidden group-hover:block top-8 left-0 w-72 bg-white border rounded-xl shadow-lg p-2">
               {fumigationLinks.map((l) => (
-                <Link key={l.name} href={l.href} className="block px-4 py-2 hover:bg-blue-50 text-sm">
+                <Link key={l.name} href={l.href} className="block px-4 py-2 text-sm hover:bg-blue-50">
                   {l.name}
                 </Link>
               ))}
@@ -102,13 +105,11 @@ export default function Navbar() {
           {/* RENOVATION */}
           <div className="relative group">
             <div className="flex items-center gap-1 cursor-pointer">
-              <span>Renovation</span>
-              <span className="text-xs">▼</span>
+              Renovation <span className="text-xs">▼</span>
             </div>
-
             <div className="absolute hidden group-hover:block top-8 left-0 w-72 bg-white border rounded-xl shadow-lg p-2">
               {renovationLinks.map((l) => (
-                <Link key={l.name} href={l.href} className="block px-4 py-2 hover:bg-blue-50 text-sm">
+                <Link key={l.name} href={l.href} className="block px-4 py-2 text-sm hover:bg-blue-50">
                   {l.name}
                 </Link>
               ))}
@@ -131,78 +132,125 @@ export default function Navbar() {
         {/* MOBILE BUTTON */}
         <button
           className="md:hidden text-3xl"
-          onClick={() => setMobileOpen(!mobileOpen)}
+          onClick={() => setMobileOpen(true)}
         >
           ☰
         </button>
       </div>
 
-      {/* MOBILE MENU */}
+      {/* MOBILE DRAWER OVERLAY */}
       {mobileOpen && (
-        <div className="md:hidden border-t bg-white px-6 py-4 space-y-4">
+        <div
+          className="fixed inset-0 bg-black/40 z-40"
+          onClick={closeAll}
+        />
+      )}
 
-          <Link href="/" onClick={closeAll}>Home</Link>
+      {/* MOBILE DRAWER */}
+      <div
+        className={`fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white z-50 shadow-2xl transition-transform duration-300 ${
+          mobileOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="p-5 space-y-4 font-medium text-slate-800">
+
+          {/* HEADER */}
+          <div className="flex justify-between items-center border-b pb-3">
+            <span className="font-bold">Menu</span>
+            <button onClick={closeAll} className="text-xl">✕</button>
+          </div>
+
+          <Link href="/" onClick={closeAll} className="block py-2">
+            Home
+          </Link>
 
           {/* CLEANING */}
-          <button onClick={() => toggleMenu("cleaning")} className="w-full text-left font-medium">
-            Cleaning ▼
-          </button>
+          <div>
+            <button onClick={() => toggleMenu("cleaning")} className="w-full text-left py-2 flex justify-between">
+              Cleaning <span>▼</span>
+            </button>
 
-          {activeMenu === "cleaning" && (
-            <div className="grid gap-2">
-              {cleaningLinks.map((l) => (
-                <Link key={l.name} href={l.href} onClick={closeAll}
-                  className="border rounded-lg px-4 py-3 bg-slate-50">
-                  {l.name}
-                </Link>
-              ))}
-            </div>
-          )}
+            {activeMenu === "cleaning" && (
+              <div className="grid gap-2 mt-2">
+                {cleaningLinks.map((l) => (
+                  <Link
+                    key={l.name}
+                    href={l.href}
+                    onClick={closeAll}
+                    className="border rounded-lg px-4 py-3 bg-slate-50"
+                  >
+                    {l.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
 
           {/* FUMIGATION */}
-          <button onClick={() => toggleMenu("fumigation")} className="w-full text-left font-medium">
-            Fumigation ▼
-          </button>
+          <div>
+            <button onClick={() => toggleMenu("fumigation")} className="w-full text-left py-2 flex justify-between">
+              Fumigation <span>▼</span>
+            </button>
 
-          {activeMenu === "fumigation" && (
-            <div className="grid gap-2">
-              {fumigationLinks.map((l) => (
-                <Link key={l.name} href={l.href} onClick={closeAll}
-                  className="border rounded-lg px-4 py-3 bg-slate-50">
-                  {l.name}
-                </Link>
-              ))}
-            </div>
-          )}
+            {activeMenu === "fumigation" && (
+              <div className="grid gap-2 mt-2">
+                {fumigationLinks.map((l) => (
+                  <Link
+                    key={l.name}
+                    href={l.href}
+                    onClick={closeAll}
+                    className="border rounded-lg px-4 py-3 bg-slate-50"
+                  >
+                    {l.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
 
           {/* RENOVATION */}
-          <button onClick={() => toggleMenu("renovation")} className="w-full text-left font-medium">
-            Renovation ▼
-          </button>
+          <div>
+            <button onClick={() => toggleMenu("renovation")} className="w-full text-left py-2 flex justify-between">
+              Renovation <span>▼</span>
+            </button>
 
-          {activeMenu === "renovation" && (
-            <div className="grid gap-2">
-              {renovationLinks.map((l) => (
-                <Link key={l.name} href={l.href} onClick={closeAll}
-                  className="border rounded-lg px-4 py-3 bg-slate-50">
-                  {l.name}
-                </Link>
-              ))}
-            </div>
-          )}
+            {activeMenu === "renovation" && (
+              <div className="grid gap-2 mt-2">
+                {renovationLinks.map((l) => (
+                  <Link
+                    key={l.name}
+                    href={l.href}
+                    onClick={closeAll}
+                    className="border rounded-lg px-4 py-3 bg-slate-50"
+                  >
+                    {l.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
 
-          <Link href="/blog" onClick={closeAll}>Blog</Link>
-          <Link href="/gallery" onClick={closeAll}>Gallery</Link>
-          <Link href="/contact" onClick={closeAll}>Contact</Link>
+          <Link href="/blog" onClick={closeAll} className="block py-2">
+            Blog
+          </Link>
+
+          <Link href="/gallery" onClick={closeAll} className="block py-2">
+            Gallery
+          </Link>
+
+          <Link href="/contact" onClick={closeAll} className="block py-2">
+            Contact
+          </Link>
 
           <a
             href="https://wa.me/254759993502"
-            className="block bg-green-500 text-white px-4 py-2 rounded-xl text-center"
+            className="block bg-green-500 text-white text-center py-2 rounded-xl mt-4"
           >
             WhatsApp
           </a>
+
         </div>
-      )}
+      </div>
     </header>
   );
 }
