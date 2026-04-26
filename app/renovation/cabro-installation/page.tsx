@@ -10,15 +10,18 @@ export default function CabroInstallationPage() {
       <main className="bg-white text-slate-900">
 
         {/* HERO */}
-        <section className="relative h-[350px]">
+        <section className="relative h-[350px] w-full">
           <Image
             src="/images/hero/cabro-repaint/IMG_1034.jpeg"
-            alt="Cabro Installation"
+            alt="Cabro Installation by Glanz Facility Services"
             fill
+            priority
             className="object-cover"
+            sizes="100vw"
           />
+
           <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-white">
+            <h1 className="text-4xl md:text-5xl font-bold text-white text-center">
               Cabro Installation
             </h1>
           </div>
@@ -31,7 +34,7 @@ export default function CabroInstallationPage() {
             We offer professional cabro installation services for homes, apartments, and commercial properties.
           </p>
 
-          <ul className="mt-6 space-y-2">
+          <ul className="mt-6 space-y-2 text-slate-700">
             <li>✔ Site preparation and leveling</li>
             <li>✔ Cabro laying and alignment</li>
             <li>✔ Compaction and finishing</li>
@@ -40,7 +43,10 @@ export default function CabroInstallationPage() {
 
           {/* PRICING SECTION */}
           <div className="mt-10 p-6 bg-slate-50 rounded-2xl border">
-            <h2 className="text-xl font-semibold">Pricing & Site Assessment</h2>
+
+            <h2 className="text-xl font-semibold">
+              Pricing & Site Assessment
+            </h2>
 
             <p className="mt-3 text-slate-600">
               Due to the nature of cabro installation works, pricing is determined after a physical site assessment.
@@ -55,16 +61,17 @@ export default function CabroInstallationPage() {
             </p>
 
             <p className="mt-3 text-slate-600">
-              We offer professional site assessments to ensure accurate pricing and quality results.
+              We ensure accurate pricing and professional results for every project.
             </p>
 
             {/* CTA */}
             <a
               href="https://wa.me/254711628595"
-              className="inline-block mt-5 bg-green-600 text-white px-6 py-3 rounded-xl"
+              className="inline-block mt-5 bg-green-600 text-white px-6 py-3 rounded-xl hover:bg-green-700 transition"
             >
               Book Site Visit on WhatsApp
             </a>
+
           </div>
 
         </section>

@@ -40,7 +40,6 @@ export default function Navbar() {
     { name: "Mosquito Control", href: "/fumigation/mosquito-control" },
   ];
 
-  // ✅ NEW
   const renovationLinks = [
     { name: "All Renovation", href: "/renovation" },
     { name: "Cabro Installation", href: "/renovation/cabro-installation" },
@@ -77,28 +76,28 @@ export default function Navbar() {
         {/* DESKTOP MENU */}
         <nav className="hidden md:flex items-center gap-8 text-slate-800 font-medium">
 
-          <Link href="/" className="hover:text-blue-600 transition">Home</Link>
+          <Link href="/" className="hover:text-blue-600">Home</Link>
 
           {/* CLEANING */}
           <div className="relative">
             <button
               onClick={() => toggleMenu("cleaning")}
               onMouseEnter={() => setActiveMenu("cleaning")}
-              className="flex items-center gap-1 hover:text-blue-600 transition"
             >
-              Cleaning <span className="text-xs">▼</span>
+              Cleaning ▼
             </button>
 
             {activeMenu === "cleaning" && (
-              <div
-                onMouseLeave={() => setActiveMenu(null)}
-                className="absolute top-10 left-0 w-72 bg-white border border-slate-100 rounded-2xl shadow-xl p-2"
-              >
+              <div className="absolute top-10 left-0 w-72 bg-white border rounded-2xl shadow-xl p-2">
                 {cleaningLinks.map((link) => (
-                  <a key={link.name} href={link.href} onClick={closeAll}
-                    className="block px-4 py-2 rounded-xl text-sm hover:bg-blue-50 hover:text-blue-600 transition">
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    onClick={closeAll}
+                    className="block px-4 py-2 text-sm hover:bg-blue-50"
+                  >
                     {link.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
             )}
@@ -109,123 +108,66 @@ export default function Navbar() {
             <button
               onClick={() => toggleMenu("fumigation")}
               onMouseEnter={() => setActiveMenu("fumigation")}
-              className="flex items-center gap-1 hover:text-blue-600 transition"
             >
-              Fumigation <span className="text-xs">▼</span>
+              Fumigation ▼
             </button>
 
             {activeMenu === "fumigation" && (
-              <div
-                onMouseLeave={() => setActiveMenu(null)}
-                className="absolute top-10 left-0 w-72 bg-white border border-slate-100 rounded-2xl shadow-xl p-2"
-              >
+              <div className="absolute top-10 left-0 w-72 bg-white border rounded-2xl shadow-xl p-2">
                 {fumigationLinks.map((link) => (
-                  <a key={link.name} href={link.href} onClick={closeAll}
-                    className="block px-4 py-2 rounded-xl text-sm hover:bg-blue-50 hover:text-blue-600 transition">
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    onClick={closeAll}
+                    className="block px-4 py-2 text-sm hover:bg-blue-50"
+                  >
                     {link.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
             )}
           </div>
 
-          {/* ✅ RENOVATION */}
+          {/* RENOVATION */}
           <div className="relative">
             <button
               onClick={() => toggleMenu("renovation")}
               onMouseEnter={() => setActiveMenu("renovation")}
-              className="flex items-center gap-1 hover:text-blue-600 transition"
             >
-              Renovation <span className="text-xs">▼</span>
+              Renovation ▼
             </button>
 
             {activeMenu === "renovation" && (
-              <div
-                onMouseLeave={() => setActiveMenu(null)}
-                className="absolute top-10 left-0 w-72 bg-white border border-slate-100 rounded-2xl shadow-xl p-2"
-              >
+              <div className="absolute top-10 left-0 w-72 bg-white border rounded-2xl shadow-xl p-2">
                 {renovationLinks.map((link) => (
-                  <a key={link.name} href={link.href} onClick={closeAll}
-                    className="block px-4 py-2 rounded-xl text-sm hover:bg-blue-50 hover:text-blue-600 transition">
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    onClick={closeAll}
+                    className="block px-4 py-2 text-sm hover:bg-blue-50"
+                  >
                     {link.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
             )}
           </div>
 
-          <a href="/blog" className="hover:text-blue-600 transition">Blog</a>
-          <a href="/gallery" className="hover:text-blue-600 transition">Gallery</a>
-          <a href="/contact" className="hover:text-blue-600 transition">Contact</a>
+          <Link href="/blog">Blog</Link>
+          <Link href="/gallery">Gallery</Link>
+          <Link href="/contact">Contact</Link>
 
         </nav>
 
         {/* CTA */}
-        <div className="flex items-center gap-3">
-          <a
-            href="https://wa.me/254759993502"
-            className="hidden md:block bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-xl text-sm font-semibold transition"
-          >
-            WhatsApp
-          </a>
-
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden border px-3 py-2 rounded-lg"
-          >
-            Menu
-          </button>
-        </div>
+        <a
+          href="https://wa.me/254759993502"
+          className="hidden md:block bg-green-500 text-white px-4 py-2 rounded-xl"
+        >
+          WhatsApp
+        </a>
 
       </div>
-
-      {/* MOBILE */}
-      {mobileOpen && (
-        <div className="md:hidden border-t bg-white p-4 space-y-3">
-
-          <Link href="/" onClick={closeAll}>Home</Link>
-
-          <details>
-            <summary className="font-semibold">Cleaning</summary>
-            {cleaningLinks.map((l) => (
-              <a key={l.name} href={l.href} onClick={closeAll} className="block pl-3 py-1 text-sm">
-                {l.name}
-              </a>
-            ))}
-          </details>
-
-          <details>
-            <summary className="font-semibold">Fumigation</summary>
-            {fumigationLinks.map((l) => (
-              <a key={l.name} href={l.href} onClick={closeAll} className="block pl-3 py-1 text-sm">
-                {l.name}
-              </a>
-            ))}
-          </details>
-
-          {/* ✅ RENOVATION MOBILE */}
-          <details>
-            <summary className="font-semibold">Renovation</summary>
-            {renovationLinks.map((l) => (
-              <a key={l.name} href={l.href} onClick={closeAll} className="block pl-3 py-1 text-sm">
-                {l.name}
-              </a>
-            ))}
-          </details>
-
-          <a href="/blog">Blog</a>
-          <a href="/gallery">Gallery</a>
-          <a href="/contact">Contact</a>
-
-          <a
-            href="https://wa.me/254759993502"
-            className="block bg-green-500 text-white text-center py-3 rounded-xl"
-          >
-            WhatsApp
-          </a>
-
-        </div>
-      )}
     </header>
   );
 }
