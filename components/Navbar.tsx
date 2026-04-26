@@ -66,9 +66,68 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* DESKTOP MENU */}
+        {/* DESKTOP MENU (RESTORED) */}
         <nav className="hidden md:flex items-center gap-8 text-slate-800 font-medium">
+
           <Link href="/">Home</Link>
+
+          {/* CLEANING */}
+          <div className="relative group">
+            <span className="cursor-pointer hover:text-blue-600">
+              Cleaning
+            </span>
+
+            <div className="absolute hidden group-hover:block top-8 left-0 w-72 bg-white border rounded-xl shadow-xl p-2">
+              {cleaningLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className="block px-4 py-2 text-sm hover:bg-blue-50"
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* FUMIGATION */}
+          <div className="relative group">
+            <span className="cursor-pointer hover:text-blue-600">
+              Fumigation
+            </span>
+
+            <div className="absolute hidden group-hover:block top-8 left-0 w-72 bg-white border rounded-xl shadow-xl p-2">
+              {fumigationLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className="block px-4 py-2 text-sm hover:bg-blue-50"
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* RENOVATION */}
+          <div className="relative group">
+            <span className="cursor-pointer hover:text-blue-600">
+              Renovation
+            </span>
+
+            <div className="absolute hidden group-hover:block top-8 left-0 w-72 bg-white border rounded-xl shadow-xl p-2">
+              {renovationLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className="block px-4 py-2 text-sm hover:bg-blue-50"
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+
           <Link href="/blog">Blog</Link>
           <Link href="/gallery">Gallery</Link>
           <Link href="/contact">Contact</Link>
@@ -93,23 +152,23 @@ export default function Navbar() {
 
       {/* MOBILE MENU */}
       {mobileOpen && (
-        <div className="md:hidden bg-white border-t px-6 py-4 space-y-4 text-slate-800 font-medium">
+        <div className="md:hidden bg-white border-t px-6 py-4 space-y-4">
 
           <Link href="/" onClick={closeAll}>Home</Link>
 
           {/* CLEANING */}
-          <button onClick={() => toggleMenu("cleaning")} className="block">
+          <button onClick={() => toggleMenu("cleaning")}>
             Cleaning
           </button>
 
           {activeMenu === "cleaning" && (
-            <div className="mt-3 flex gap-3 overflow-x-auto pb-2">
+            <div className="grid grid-cols-1 gap-2 mt-3">
               {cleaningLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
                   onClick={closeAll}
-                  className="min-w-[160px] flex-shrink-0 border rounded-xl px-4 py-3 text-sm text-center bg-slate-50 hover:bg-blue-50"
+                  className="border rounded-lg px-4 py-3 text-sm bg-slate-50 hover:bg-blue-50"
                 >
                   {link.name}
                 </Link>
@@ -118,18 +177,18 @@ export default function Navbar() {
           )}
 
           {/* FUMIGATION */}
-          <button onClick={() => toggleMenu("fumigation")} className="block">
+          <button onClick={() => toggleMenu("fumigation")}>
             Fumigation
           </button>
 
           {activeMenu === "fumigation" && (
-            <div className="mt-3 flex gap-3 overflow-x-auto pb-2">
+            <div className="grid grid-cols-1 gap-2 mt-3">
               {fumigationLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
                   onClick={closeAll}
-                  className="min-w-[160px] flex-shrink-0 border rounded-xl px-4 py-3 text-sm text-center bg-slate-50 hover:bg-blue-50"
+                  className="border rounded-lg px-4 py-3 text-sm bg-slate-50 hover:bg-blue-50"
                 >
                   {link.name}
                 </Link>
@@ -138,18 +197,18 @@ export default function Navbar() {
           )}
 
           {/* RENOVATION */}
-          <button onClick={() => toggleMenu("renovation")} className="block">
+          <button onClick={() => toggleMenu("renovation")}>
             Renovation
           </button>
 
           {activeMenu === "renovation" && (
-            <div className="mt-3 flex gap-3 overflow-x-auto pb-2">
+            <div className="grid grid-cols-1 gap-2 mt-3">
               {renovationLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
                   onClick={closeAll}
-                  className="min-w-[160px] flex-shrink-0 border rounded-xl px-4 py-3 text-sm text-center bg-slate-50 hover:bg-blue-50"
+                  className="border rounded-lg px-4 py-3 text-sm bg-slate-50 hover:bg-blue-50"
                 >
                   {link.name}
                 </Link>
