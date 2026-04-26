@@ -1,14 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Navbar() {
+  const pathname = usePathname();
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<
     "cleaning" | "fumigation" | "renovation" | null
   >(null);
+
+  // Close menus on route change (important UX fix)
+  useEffect(() => {
+    setMobileOpen(false);
+    setActiveMenu(null);
+  }, [pathname]);
 
   const closeAll = () => {
     setMobileOpen(false);
@@ -45,7 +54,7 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b shadow-sm">
       <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
 
         {/* LOGO */}
@@ -68,16 +77,12 @@ export default function Navbar() {
 
         {/* DESKTOP MENU */}
         <nav className="hidden md:flex items-center gap-8 text-slate-800 font-medium">
-          <Link href="/" className="hover:text-blue-600">Home</Link>
+          <Link href="/">Home</Link>
 
-          {/* CLEANING */}
           <div className="relative">
-            <button onClick={() => toggleMenu("cleaning")}>
-              Cleaning ▼
-            </button>
-
+            <button onClick={() => toggleMenu("cleaning")}>Cleaning ▼</button>
             {activeMenu === "cleaning" && (
-              <div className="absolute top-10 left-0 w-72 bg-white border rounded-2xl shadow-xl p-2">
+              <div className="absolute top-10 left-0 w-72 bg-white border rounded-xl shadow-xl p-2 animate-fade">
                 {cleaningLinks.map((link) => (
                   <Link
                     key={link.name}
@@ -92,14 +97,10 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* FUMIGATION */}
           <div className="relative">
-            <button onClick={() => toggleMenu("fumigation")}>
-              Fumigation ▼
-            </button>
-
+            <button onClick={() => toggleMenu("fumigation")}>Fumigation ▼</button>
             {activeMenu === "fumigation" && (
-              <div className="absolute top-10 left-0 w-72 bg-white border rounded-2xl shadow-xl p-2">
+              <div className="absolute top-10 left-0 w-72 bg-white border rounded-xl shadow-xl p-2 animate-fade">
                 {fumigationLinks.map((link) => (
                   <Link
                     key={link.name}
@@ -114,14 +115,10 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* RENOVATION */}
           <div className="relative">
-            <button onClick={() => toggleMenu("renovation")}>
-              Renovation ▼
-            </button>
-
+            <button onClick={() => toggleMenu("renovation")}>Renovation ▼</button>
             {activeMenu === "renovation" && (
-              <div className="absolute top-10 left-0 w-72 bg-white border rounded-2xl shadow-xl p-2">
+              <div className="absolute top-10 left-0 w-72 bg-white border rounded-xl shadow-xl p-2 animate-fade">
                 {renovationLinks.map((link) => (
                   <Link
                     key={link.name}
@@ -141,7 +138,7 @@ export default function Navbar() {
           <Link href="/contact">Contact</Link>
         </nav>
 
-        {/* CTA (desktop) */}
+        {/* CTA */}
         <a
           href="https://wa.me/254759993502"
           className="hidden md:block bg-green-500 text-white px-4 py-2 rounded-xl"
@@ -158,16 +155,17 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* MOBILE MENU */}
-      {mobileOpen && (
-        <div className="md:hidden bg-white border-t px-6 py-4 space-y-4 text-slate-800 font-medium">
+      {/* MOBILE MENU (ANIMATED) */}
+      <div
+        className={`md:hidden bg-white border-t px-6 overflow-hidden transition-all duration-300 ease-in-out ${
+          mobileOpen ? "max-h-[800px] py-4" : "max-h-0 py-0"
+        }`}
+      >
+        <div className="space-y-4 text-slate-800 font-medium">
 
           <Link href="/" onClick={closeAll}>Home</Link>
 
-          {/* CLEANING */}
-          <button onClick={() => toggleMenu("cleaning")} className="block">
-            Cleaning
-          </button>
+          <button onClick={() => toggleMenu("cleaning")}>Cleaning</button>
           {activeMenu === "cleaning" && (
             <div className="pl-4 space-y-2">
               {cleaningLinks.map((link) => (
@@ -178,10 +176,7 @@ export default function Navbar() {
             </div>
           )}
 
-          {/* FUMIGATION */}
-          <button onClick={() => toggleMenu("fumigation")} className="block">
-            Fumigation
-          </button>
+          <button onClick={() => toggleMenu("fumigation")}>Fumigation</button>
           {activeMenu === "fumigation" && (
             <div className="pl-4 space-y-2">
               {fumigationLinks.map((link) => (
@@ -192,10 +187,7 @@ export default function Navbar() {
             </div>
           )}
 
-          {/* RENOVATION */}
-          <button onClick={() => toggleMenu("renovation")} className="block">
-            Renovation
-          </button>
+          <button onClick={() => toggleMenu("renovation")}>Renovation</button>
           {activeMenu === "renovation" && (
             <div className="pl-4 space-y-2">
               {renovationLinks.map((link) => (
@@ -217,7 +209,25 @@ export default function Navbar() {
             WhatsApp
           </a>
         </div>
-      )}
+      </div>
+
+      {/* SIMPLE ANIMATION */}
+      <style jsx>{`
+        .animate-fade {
+          animation: fadeIn 0.15s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(-5px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </header>
   );
 }
