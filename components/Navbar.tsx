@@ -7,20 +7,27 @@ import Link from "next/link";
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  // Desktop dropdown
   const [activeMenu, setActiveMenu] = useState<
+    "cleaning" | "fumigation" | "renovation" | null
+  >(null);
+
+  // Mobile dropdown (separate)
+  const [mobileMenu, setMobileMenu] = useState<
     "cleaning" | "fumigation" | "renovation" | null
   >(null);
 
   const closeAll = () => {
     setMobileOpen(false);
     setActiveMenu(null);
+    setMobileMenu(null);
   };
 
   const toggleMenu = (menu: "cleaning" | "fumigation" | "renovation") => {
     setActiveMenu((prev) => (prev === menu ? null : menu));
   };
 
-  // Close dropdown on outside click (desktop)
+  // Close desktop dropdown on outside click
   useEffect(() => {
     const handleClick = () => setActiveMenu(null);
     window.addEventListener("click", handleClick);
@@ -209,19 +216,19 @@ export default function Navbar() {
             <button onClick={closeAll} className="text-xl">✕</button>
           </div>
 
-          <Link href="/" onClick={closeAll} className="block py-2">
-            Home
-          </Link>
+          <Link href="/" onClick={closeAll}>Home</Link>
 
           {/* CLEANING */}
           <button
-            onClick={() => toggleMenu("cleaning")}
+            onClick={() =>
+              setMobileMenu((prev) => (prev === "cleaning" ? null : "cleaning"))
+            }
             className="w-full flex justify-between py-2"
           >
             Cleaning <span>▼</span>
           </button>
 
-          {activeMenu === "cleaning" && (
+          {mobileMenu === "cleaning" && (
             <div className="grid gap-2">
               {cleaningLinks.map((l) => (
                 <Link
@@ -238,13 +245,15 @@ export default function Navbar() {
 
           {/* FUMIGATION */}
           <button
-            onClick={() => toggleMenu("fumigation")}
+            onClick={() =>
+              setMobileMenu((prev) => (prev === "fumigation" ? null : "fumigation"))
+            }
             className="w-full flex justify-between py-2"
           >
             Fumigation <span>▼</span>
           </button>
 
-          {activeMenu === "fumigation" && (
+          {mobileMenu === "fumigation" && (
             <div className="grid gap-2">
               {fumigationLinks.map((l) => (
                 <Link
@@ -261,13 +270,15 @@ export default function Navbar() {
 
           {/* RENOVATION */}
           <button
-            onClick={() => toggleMenu("renovation")}
+            onClick={() =>
+              setMobileMenu((prev) => (prev === "renovation" ? null : "renovation"))
+            }
             className="w-full flex justify-between py-2"
           >
             Renovation <span>▼</span>
           </button>
 
-          {activeMenu === "renovation" && (
+          {mobileMenu === "renovation" && (
             <div className="grid gap-2">
               {renovationLinks.map((l) => (
                 <Link
@@ -282,17 +293,9 @@ export default function Navbar() {
             </div>
           )}
 
-          <Link href="/blog" onClick={closeAll} className="block py-2">
-            Blog
-          </Link>
-
-          <Link href="/gallery" onClick={closeAll} className="block py-2">
-            Gallery
-          </Link>
-
-          <Link href="/contact" onClick={closeAll} className="block py-2">
-            Contact
-          </Link>
+          <Link href="/blog" onClick={closeAll}>Blog</Link>
+          <Link href="/gallery" onClick={closeAll}>Gallery</Link>
+          <Link href="/contact" onClick={closeAll}>Contact</Link>
 
           <a
             href="https://wa.me/254759993502"
