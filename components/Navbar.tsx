@@ -1,12 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-
   const [activeMenu, setActiveMenu] = useState<
     "cleaning" | "fumigation" | "renovation" | null
   >(null);
@@ -19,6 +18,13 @@ export default function Navbar() {
   const toggleMenu = (menu: "cleaning" | "fumigation" | "renovation") => {
     setActiveMenu((prev) => (prev === menu ? null : menu));
   };
+
+  // Close dropdown when clicking outside (desktop safety)
+  useEffect(() => {
+    const handleClick = () => setActiveMenu(null);
+    window.addEventListener("click", handleClick);
+    return () => window.removeEventListener("click", handleClick);
+  }, []);
 
   const cleaningLinks = [
     { name: "All Cleaning", href: "/services" },
@@ -75,45 +81,87 @@ export default function Navbar() {
           <Link href="/">Home</Link>
 
           {/* CLEANING */}
-          <div className="relative group">
-            <div className="flex items-center gap-1 cursor-pointer">
+          <div className="relative">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleMenu("cleaning");
+              }}
+              className="flex items-center gap-1"
+            >
               Cleaning <span className="text-xs">▼</span>
-            </div>
-            <div className="absolute hidden group-hover:block top-8 left-0 w-72 bg-white border rounded-xl shadow-lg p-2">
-              {cleaningLinks.map((l) => (
-                <Link key={l.name} href={l.href} className="block px-4 py-2 text-sm hover:bg-blue-50">
-                  {l.name}
-                </Link>
-              ))}
-            </div>
+            </button>
+
+            {activeMenu === "cleaning" && (
+              <div className="absolute top-8 left-0 w-72 bg-white border rounded-xl shadow-lg p-2 z-50">
+                {cleaningLinks.map((l) => (
+                  <Link
+                    key={l.name}
+                    href={l.href}
+                    onClick={closeAll}
+                    className="block px-4 py-2 text-sm hover:bg-blue-50"
+                  >
+                    {l.name}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* FUMIGATION */}
-          <div className="relative group">
-            <div className="flex items-center gap-1 cursor-pointer">
+          <div className="relative">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleMenu("fumigation");
+              }}
+              className="flex items-center gap-1"
+            >
               Fumigation <span className="text-xs">▼</span>
-            </div>
-            <div className="absolute hidden group-hover:block top-8 left-0 w-72 bg-white border rounded-xl shadow-lg p-2">
-              {fumigationLinks.map((l) => (
-                <Link key={l.name} href={l.href} className="block px-4 py-2 text-sm hover:bg-blue-50">
-                  {l.name}
-                </Link>
-              ))}
-            </div>
+            </button>
+
+            {activeMenu === "fumigation" && (
+              <div className="absolute top-8 left-0 w-72 bg-white border rounded-xl shadow-lg p-2 z-50">
+                {fumigationLinks.map((l) => (
+                  <Link
+                    key={l.name}
+                    href={l.href}
+                    onClick={closeAll}
+                    className="block px-4 py-2 text-sm hover:bg-blue-50"
+                  >
+                    {l.name}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* RENOVATION */}
-          <div className="relative group">
-            <div className="flex items-center gap-1 cursor-pointer">
+          <div className="relative">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleMenu("renovation");
+              }}
+              className="flex items-center gap-1"
+            >
               Renovation <span className="text-xs">▼</span>
-            </div>
-            <div className="absolute hidden group-hover:block top-8 left-0 w-72 bg-white border rounded-xl shadow-lg p-2">
-              {renovationLinks.map((l) => (
-                <Link key={l.name} href={l.href} className="block px-4 py-2 text-sm hover:bg-blue-50">
-                  {l.name}
-                </Link>
-              ))}
-            </div>
+            </button>
+
+            {activeMenu === "renovation" && (
+              <div className="absolute top-8 left-0 w-72 bg-white border rounded-xl shadow-lg p-2 z-50">
+                {renovationLinks.map((l) => (
+                  <Link
+                    key={l.name}
+                    href={l.href}
+                    onClick={closeAll}
+                    className="block px-4 py-2 text-sm hover:bg-blue-50"
+                  >
+                    {l.name}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
 
           <Link href="/blog">Blog</Link>
@@ -138,21 +186,21 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* MOBILE DRAWER OVERLAY */}
+      {/* MOBILE OVERLAY */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 bg-black/40 z-40"
+          className="fixed inset-0 bg-black/50 z-[9998]"
           onClick={closeAll}
         />
       )}
 
       {/* MOBILE DRAWER */}
       <div
-        className={`fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white z-50 shadow-2xl transition-transform duration-300 ${
+        className={`fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white z-[9999] shadow-2xl transition-transform duration-300 ${
           mobileOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="p-5 space-y-4 font-medium text-slate-800">
+        <div className="p-5 space-y-4 text-slate-800 font-medium">
 
           {/* HEADER */}
           <div className="flex justify-between items-center border-b pb-3">
@@ -165,70 +213,64 @@ export default function Navbar() {
           </Link>
 
           {/* CLEANING */}
-          <div>
-            <button onClick={() => toggleMenu("cleaning")} className="w-full text-left py-2 flex justify-between">
-              Cleaning <span>▼</span>
-            </button>
+          <button onClick={() => toggleMenu("cleaning")} className="w-full text-left py-2 flex justify-between">
+            Cleaning <span>▼</span>
+          </button>
 
-            {activeMenu === "cleaning" && (
-              <div className="grid gap-2 mt-2">
-                {cleaningLinks.map((l) => (
-                  <Link
-                    key={l.name}
-                    href={l.href}
-                    onClick={closeAll}
-                    className="border rounded-lg px-4 py-3 bg-slate-50"
-                  >
-                    {l.name}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
+          {activeMenu === "cleaning" && (
+            <div className="grid gap-2">
+              {cleaningLinks.map((l) => (
+                <Link
+                  key={l.name}
+                  href={l.href}
+                  onClick={closeAll}
+                  className="border rounded-lg px-4 py-3 bg-slate-50"
+                >
+                  {l.name}
+                </Link>
+              ))}
+            </div>
+          )}
 
           {/* FUMIGATION */}
-          <div>
-            <button onClick={() => toggleMenu("fumigation")} className="w-full text-left py-2 flex justify-between">
-              Fumigation <span>▼</span>
-            </button>
+          <button onClick={() => toggleMenu("fumigation")} className="w-full text-left py-2 flex justify-between">
+            Fumigation <span>▼</span>
+          </button>
 
-            {activeMenu === "fumigation" && (
-              <div className="grid gap-2 mt-2">
-                {fumigationLinks.map((l) => (
-                  <Link
-                    key={l.name}
-                    href={l.href}
-                    onClick={closeAll}
-                    className="border rounded-lg px-4 py-3 bg-slate-50"
-                  >
-                    {l.name}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
+          {activeMenu === "fumigation" && (
+            <div className="grid gap-2">
+              {fumigationLinks.map((l) => (
+                <Link
+                  key={l.name}
+                  href={l.href}
+                  onClick={closeAll}
+                  className="border rounded-lg px-4 py-3 bg-slate-50"
+                >
+                  {l.name}
+                </Link>
+              ))}
+            </div>
+          )}
 
           {/* RENOVATION */}
-          <div>
-            <button onClick={() => toggleMenu("renovation")} className="w-full text-left py-2 flex justify-between">
-              Renovation <span>▼</span>
-            </button>
+          <button onClick={() => toggleMenu("renovation")} className="w-full text-left py-2 flex justify-between">
+            Renovation <span>▼</span>
+          </button>
 
-            {activeMenu === "renovation" && (
-              <div className="grid gap-2 mt-2">
-                {renovationLinks.map((l) => (
-                  <Link
-                    key={l.name}
-                    href={l.href}
-                    onClick={closeAll}
-                    className="border rounded-lg px-4 py-3 bg-slate-50"
-                  >
-                    {l.name}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
+          {activeMenu === "renovation" && (
+            <div className="grid gap-2">
+              {renovationLinks.map((l) => (
+                <Link
+                  key={l.name}
+                  href={l.href}
+                  onClick={closeAll}
+                  className="border rounded-lg px-4 py-3 bg-slate-50"
+                >
+                  {l.name}
+                </Link>
+              ))}
+            </div>
+          )}
 
           <Link href="/blog" onClick={closeAll} className="block py-2">
             Blog
@@ -248,7 +290,6 @@ export default function Navbar() {
           >
             WhatsApp
           </a>
-
         </div>
       </div>
     </header>
