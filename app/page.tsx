@@ -5,11 +5,11 @@ import WhatsappFloat from "../components/WhatsappFloat";
 import Script from "next/script";
 
 export const metadata = {
-  title: "Glanz Facility Services | Cleaning Services in Nairobi Kenya",
+  title: "Glanz Facility Services | Cleaning & Renovation Services in Nairobi Kenya",
   description:
-    "Professional cleaning services in Nairobi including sofa cleaning, carpet cleaning, house cleaning, mattress cleaning, window cleaning, tile cleaning, terrazzo cleaning and fumigation services across Kenya.",
+    "Professional cleaning and renovation services in Nairobi including sofa cleaning, carpet cleaning, house cleaning, cabro installation, cabro repainting, house painting, and fumigation services across Kenya.",
   keywords:
-    "cleaning services Nairobi, sofa cleaning Kenya, carpet cleaning Nairobi, house cleaning Kenya, mattress cleaning Nairobi, fumigation services Kenya",
+    "cleaning services Nairobi, renovation services Nairobi, cabro installation Kenya, house painting Nairobi, sofa cleaning Kenya, carpet cleaning Nairobi, fumigation services Kenya",
 };
 
 export default function HomePage() {
@@ -27,11 +27,16 @@ export default function HomePage() {
     { title: "Office Cleaning", link: "/commercial/office-cleaning" },
     { title: "Janitorial Cleaning", link: "/commercial/janitorial-cleaning" },
     { title: "Fumigation Services", link: "/fumigation" },
+
+    // ✅ NEW: RENOVATION CATEGORY
+    { title: "Cabro Installation", link: "/renovation/cabro-installation" },
+    { title: "Cabro Repainting", link: "/renovation/cabro-repainting" },
+    { title: "House Painting", link: "/renovation/house-painting" },
   ];
 
   return (
     <>
-      {/* ✅ SEO SCHEMA (SAFE + PROPER) */}
+      {/* SEO SCHEMA */}
       <Script
         id="org-schema"
         type="application/ld+json"
@@ -47,7 +52,7 @@ export default function HomePage() {
             image:
               "https://www.glanzkenya.co.ke/images/hero/Profile/2.jpg",
             description:
-              "Professional cleaning services in Nairobi including sofa cleaning, carpet cleaning, mattress cleaning, cabro cleaning, fumigation, and post-construction cleaning.",
+              "Professional cleaning and renovation services in Nairobi including cabro installation, cabro repainting, house painting, and deep cleaning services.",
             telephone: "+254759993502",
             email: "info@glanzkenya.co.ke",
             address: {
@@ -58,10 +63,10 @@ export default function HomePage() {
             areaServed: ["Nairobi", "Kiambu", "Thika", "Ruiru", "Kahawa"],
             sameAs: [
               "https://www.facebook.com/profile.php?id=61562113449202",
-              "https://www.instagram.com/p/DWqayreCCFI/",
+              "https://www.instagram.com/glanzkenya",
               "https://www.tiktok.com/@glanzkenya",
             ],
-            priceRange: "KES 2000 - KES 50000",
+            priceRange: "KES 2000 - KES 150000",
           }),
         }}
       />
@@ -76,13 +81,13 @@ export default function HomePage() {
 
             <div>
               <h1 className="text-4xl font-bold sm:text-5xl lg:text-6xl">
-                Professional Cleaning Services in Nairobi
+                Cleaning & Renovation Services in Nairobi
               </h1>
 
               <p className="mt-6 max-w-2xl text-lg text-slate-600">
-                Sofa cleaning, carpet cleaning, house cleaning, mattress cleaning,
-                cabro cleaning, terrazzo cleaning, window cleaning, tile cleaning,
-                office cleaning, janitorial cleaning and fumigation services.
+                We provide professional cleaning and renovation solutions including
+                cabro installation, cabro repainting, house painting, and deep cleaning
+                for homes, offices, and commercial spaces.
               </p>
 
               <div className="mt-8 flex gap-4">
@@ -115,19 +120,27 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* FEATURED IMAGES */}
+        {/* FEATURED */}
         <section className="bg-white py-16">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
 
             <h2 className="text-3xl font-bold">
-              Our Featured Cleaning Services
+              Featured Projects
             </h2>
 
             <div className="mt-10 grid gap-6 md:grid-cols-3">
 
-              <div className="relative h-64 w-full"><Image src="/images/hero/cabro-cleaning/1.jpg" alt="Cabro cleaning Nairobi" fill sizes="(max-width: 768px) 100vw, 33vw" className="rounded-2xl object-cover" /></div>
-              <div className="relative h-64 w-full"><Image src="/images/hero/cabro-cleaning/7.jpg" alt="Cabro cleaning Kenya" fill sizes="(max-width: 768px) 100vw, 33vw" className="rounded-2xl object-cover" /></div>
-              <div className="relative h-64 w-full"><Image src="/images/hero/tile-cleaning/1.jpg" alt="Tile cleaning Nairobi" fill sizes="(max-width: 768px) 100vw, 33vw" className="rounded-2xl object-cover" /></div>
+              <div className="relative h-64 w-full">
+                <Image src="/images/hero/cabro-cleaning/1.jpg" alt="Cabro cleaning Nairobi" fill className="rounded-2xl object-cover" />
+              </div>
+
+              <div className="relative h-64 w-full">
+                <Image src="/images/hero/cabro-cleaning/7.jpg" alt="Cabro repainting Kenya" fill className="rounded-2xl object-cover" />
+              </div>
+
+              <div className="relative h-64 w-full">
+                <Image src="/images/hero/tile-cleaning/1.jpg" alt="Tile cleaning Nairobi" fill className="rounded-2xl object-cover" />
+              </div>
 
             </div>
 
@@ -148,7 +161,7 @@ export default function HomePage() {
                   className="rounded-2xl bg-white p-6 shadow-sm hover:shadow-md transition"
                 >
                   <h3 className="text-xl font-semibold">{service.title}</h3>
-                  <p className="mt-2 text-slate-600">View details and pricing</p>
+                  <p className="mt-2 text-slate-600">View details</p>
                 </a>
               ))}
             </div>

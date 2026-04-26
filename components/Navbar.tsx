@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<
-    "cleaning" | "fumigation" | null
+    "cleaning" | "fumigation" | "renovation" | null
   >(null);
 
   const closeAll = () => {
@@ -40,7 +40,14 @@ export default function Navbar() {
     { name: "Mosquito Control", href: "/fumigation/mosquito-control" },
   ];
 
-  const toggleMenu = (menu: "cleaning" | "fumigation") => {
+  // ✅ NEW
+  const renovationLinks = [
+    { name: "All Renovation", href: "/renovation" },
+    { name: "Cabro Installation", href: "/renovation/cabro-installation" },
+    { name: "House Painting", href: "/renovation/house-painting" },
+  ];
+
+  const toggleMenu = (menu: "cleaning" | "fumigation" | "renovation") => {
     setActiveMenu((prev) => (prev === menu ? null : menu));
   };
 
@@ -50,7 +57,6 @@ export default function Navbar() {
 
         {/* LOGO */}
         <Link href="/" onClick={closeAll} className="flex items-center gap-3">
-
           <Image
             src="/images/hero/Logo/glanz_facility_services_logo-removebg-preview.png"
             alt="Glanz Facility Services"
@@ -66,7 +72,6 @@ export default function Navbar() {
               Cleaning & Surface Restoration Experts
             </p>
           </div>
-
         </Link>
 
         {/* DESKTOP MENU */}
@@ -81,8 +86,7 @@ export default function Navbar() {
               onMouseEnter={() => setActiveMenu("cleaning")}
               className="flex items-center gap-1 hover:text-blue-600 transition"
             >
-              Cleaning
-              <span className="text-xs">▼</span>
+              Cleaning <span className="text-xs">▼</span>
             </button>
 
             {activeMenu === "cleaning" && (
@@ -91,12 +95,8 @@ export default function Navbar() {
                 className="absolute top-10 left-0 w-72 bg-white border border-slate-100 rounded-2xl shadow-xl p-2"
               >
                 {cleaningLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={closeAll}
-                    className="block px-4 py-2 rounded-xl text-sm hover:bg-blue-50 hover:text-blue-600 transition"
-                  >
+                  <a key={link.name} href={link.href} onClick={closeAll}
+                    className="block px-4 py-2 rounded-xl text-sm hover:bg-blue-50 hover:text-blue-600 transition">
                     {link.name}
                   </a>
                 ))}
@@ -111,8 +111,7 @@ export default function Navbar() {
               onMouseEnter={() => setActiveMenu("fumigation")}
               className="flex items-center gap-1 hover:text-blue-600 transition"
             >
-              Fumigation
-              <span className="text-xs">▼</span>
+              Fumigation <span className="text-xs">▼</span>
             </button>
 
             {activeMenu === "fumigation" && (
@@ -121,12 +120,33 @@ export default function Navbar() {
                 className="absolute top-10 left-0 w-72 bg-white border border-slate-100 rounded-2xl shadow-xl p-2"
               >
                 {fumigationLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={closeAll}
-                    className="block px-4 py-2 rounded-xl text-sm hover:bg-blue-50 hover:text-blue-600 transition"
-                  >
+                  <a key={link.name} href={link.href} onClick={closeAll}
+                    className="block px-4 py-2 rounded-xl text-sm hover:bg-blue-50 hover:text-blue-600 transition">
+                    {link.name}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* ✅ RENOVATION */}
+          <div className="relative">
+            <button
+              onClick={() => toggleMenu("renovation")}
+              onMouseEnter={() => setActiveMenu("renovation")}
+              className="flex items-center gap-1 hover:text-blue-600 transition"
+            >
+              Renovation <span className="text-xs">▼</span>
+            </button>
+
+            {activeMenu === "renovation" && (
+              <div
+                onMouseLeave={() => setActiveMenu(null)}
+                className="absolute top-10 left-0 w-72 bg-white border border-slate-100 rounded-2xl shadow-xl p-2"
+              >
+                {renovationLinks.map((link) => (
+                  <a key={link.name} href={link.href} onClick={closeAll}
+                    className="block px-4 py-2 rounded-xl text-sm hover:bg-blue-50 hover:text-blue-600 transition">
                     {link.name}
                   </a>
                 ))}
@@ -142,7 +162,6 @@ export default function Navbar() {
 
         {/* CTA */}
         <div className="flex items-center gap-3">
-
           <a
             href="https://wa.me/254759993502"
             className="hidden md:block bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-xl text-sm font-semibold transition"
@@ -156,7 +175,6 @@ export default function Navbar() {
           >
             Menu
           </button>
-
         </div>
 
       </div>
@@ -179,6 +197,16 @@ export default function Navbar() {
           <details>
             <summary className="font-semibold">Fumigation</summary>
             {fumigationLinks.map((l) => (
+              <a key={l.name} href={l.href} onClick={closeAll} className="block pl-3 py-1 text-sm">
+                {l.name}
+              </a>
+            ))}
+          </details>
+
+          {/* ✅ RENOVATION MOBILE */}
+          <details>
+            <summary className="font-semibold">Renovation</summary>
+            {renovationLinks.map((l) => (
               <a key={l.name} href={l.href} onClick={closeAll} className="block pl-3 py-1 text-sm">
                 {l.name}
               </a>
