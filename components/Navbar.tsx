@@ -1,23 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Navbar() {
-  const pathname = usePathname();
-
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<
     "cleaning" | "fumigation" | "renovation" | null
   >(null);
-
-  // Close menus on route change (important UX fix)
-  useEffect(() => {
-    setMobileOpen(false);
-    setActiveMenu(null);
-  }, [pathname]);
 
   const closeAll = () => {
     setMobileOpen(false);
@@ -78,61 +69,6 @@ export default function Navbar() {
         {/* DESKTOP MENU */}
         <nav className="hidden md:flex items-center gap-8 text-slate-800 font-medium">
           <Link href="/">Home</Link>
-
-          <div className="relative">
-            <button onClick={() => toggleMenu("cleaning")}>Cleaning ▼</button>
-            {activeMenu === "cleaning" && (
-              <div className="absolute top-10 left-0 w-72 bg-white border rounded-xl shadow-xl p-2 animate-fade">
-                {cleaningLinks.map((link) => (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    onClick={closeAll}
-                    className="block px-4 py-2 text-sm hover:bg-blue-50"
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div className="relative">
-            <button onClick={() => toggleMenu("fumigation")}>Fumigation ▼</button>
-            {activeMenu === "fumigation" && (
-              <div className="absolute top-10 left-0 w-72 bg-white border rounded-xl shadow-xl p-2 animate-fade">
-                {fumigationLinks.map((link) => (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    onClick={closeAll}
-                    className="block px-4 py-2 text-sm hover:bg-blue-50"
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div className="relative">
-            <button onClick={() => toggleMenu("renovation")}>Renovation ▼</button>
-            {activeMenu === "renovation" && (
-              <div className="absolute top-10 left-0 w-72 bg-white border rounded-xl shadow-xl p-2 animate-fade">
-                {renovationLinks.map((link) => (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    onClick={closeAll}
-                    className="block px-4 py-2 text-sm hover:bg-blue-50"
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-
           <Link href="/blog">Blog</Link>
           <Link href="/gallery">Gallery</Link>
           <Link href="/contact">Contact</Link>
@@ -155,43 +91,66 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* MOBILE MENU (ANIMATED) */}
-      <div
-        className={`md:hidden bg-white border-t px-6 overflow-hidden transition-all duration-300 ease-in-out ${
-          mobileOpen ? "max-h-[800px] py-4" : "max-h-0 py-0"
-        }`}
-      >
-        <div className="space-y-4 text-slate-800 font-medium">
+      {/* MOBILE MENU */}
+      {mobileOpen && (
+        <div className="md:hidden bg-white border-t px-6 py-4 space-y-4 text-slate-800 font-medium">
 
           <Link href="/" onClick={closeAll}>Home</Link>
 
-          <button onClick={() => toggleMenu("cleaning")}>Cleaning</button>
+          {/* CLEANING */}
+          <button onClick={() => toggleMenu("cleaning")} className="block">
+            Cleaning
+          </button>
+
           {activeMenu === "cleaning" && (
-            <div className="pl-4 space-y-2">
+            <div className="mt-3 flex gap-3 overflow-x-auto pb-2">
               {cleaningLinks.map((link) => (
-                <Link key={link.name} href={link.href} onClick={closeAll}>
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={closeAll}
+                  className="min-w-[160px] flex-shrink-0 border rounded-xl px-4 py-3 text-sm text-center bg-slate-50 hover:bg-blue-50"
+                >
                   {link.name}
                 </Link>
               ))}
             </div>
           )}
 
-          <button onClick={() => toggleMenu("fumigation")}>Fumigation</button>
+          {/* FUMIGATION */}
+          <button onClick={() => toggleMenu("fumigation")} className="block">
+            Fumigation
+          </button>
+
           {activeMenu === "fumigation" && (
-            <div className="pl-4 space-y-2">
+            <div className="mt-3 flex gap-3 overflow-x-auto pb-2">
               {fumigationLinks.map((link) => (
-                <Link key={link.name} href={link.href} onClick={closeAll}>
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={closeAll}
+                  className="min-w-[160px] flex-shrink-0 border rounded-xl px-4 py-3 text-sm text-center bg-slate-50 hover:bg-blue-50"
+                >
                   {link.name}
                 </Link>
               ))}
             </div>
           )}
 
-          <button onClick={() => toggleMenu("renovation")}>Renovation</button>
+          {/* RENOVATION */}
+          <button onClick={() => toggleMenu("renovation")} className="block">
+            Renovation
+          </button>
+
           {activeMenu === "renovation" && (
-            <div className="pl-4 space-y-2">
+            <div className="mt-3 flex gap-3 overflow-x-auto pb-2">
               {renovationLinks.map((link) => (
-                <Link key={link.name} href={link.href} onClick={closeAll}>
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={closeAll}
+                  className="min-w-[160px] flex-shrink-0 border rounded-xl px-4 py-3 text-sm text-center bg-slate-50 hover:bg-blue-50"
+                >
                   {link.name}
                 </Link>
               ))}
@@ -209,25 +168,7 @@ export default function Navbar() {
             WhatsApp
           </a>
         </div>
-      </div>
-
-      {/* SIMPLE ANIMATION */}
-      <style jsx>{`
-        .animate-fade {
-          animation: fadeIn 0.15s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(-5px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
+      )}
     </header>
   );
 }
