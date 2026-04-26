@@ -1,186 +1,304 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
-  const toggleDropdown = (menu: string) => {
-    setOpenDropdown(openDropdown === menu ? null : menu);
+  const [activeMenu, setActiveMenu] = useState<
+    "cleaning" | "fumigation" | "renovation" | null
+  >(null);
+
+  const closeAll = () => {
+    setMobileOpen(false);
+    setActiveMenu(null);
   };
 
-  return (
-    <header className="fixed top-0 left-0 w-full z-[9999]">
-      {/* Top bar */}
-      <div className="backdrop-blur-xl bg-white/80 border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+  const toggleMenu = (menu: "cleaning" | "fumigation" | "renovation") => {
+    setActiveMenu((prev) => (prev === menu ? null : menu));
+  };
 
-          {/* Logo */}
-          <Link href="/" className="font-semibold text-lg tracking-tight">
-            Glanz Facility Services
+  // Close desktop dropdown on outside click
+  useEffect(() => {
+    const handleClick = () => setActiveMenu(null);
+    window.addEventListener("click", handleClick);
+    return () => window.removeEventListener("click", handleClick);
+  }, []);
+
+  const cleaningLinks = [
+    { name: "All Cleaning", href: "/services" },
+    { name: "Sofa Cleaning", href: "/services/sofa-cleaning" },
+    { name: "Carpet Cleaning", href: "/services/carpet-cleaning" },
+    { name: "House Cleaning", href: "/services/house-cleaning" },
+    { name: "Cabro Cleaning", href: "/services/cabro-cleaning" },
+    { name: "Office Cleaning", href: "/commercial/office-cleaning" },
+    { name: "Post Construction", href: "/post-construction-cleaning" },
+    { name: "Window Cleaning", href: "/window-cleaning" },
+    { name: "Tile Cleaning", href: "/tile-cleaning" },
+  ];
+
+  const fumigationLinks = [
+    { name: "All Fumigation", href: "/fumigation" },
+    { name: "Cockroach Control", href: "/fumigation/cockroach-control" },
+    { name: "Bedbugs Control", href: "/fumigation/bedbug-control" },
+    { name: "Mosquito Control", href: "/fumigation/mosquito-control" },
+  ];
+
+  const renovationLinks = [
+    { name: "All Renovation", href: "/renovation" },
+    { name: "Cabro Installation", href: "/renovation/cabro-installation" },
+    { name: "House Painting", href: "/renovation/house-painting" },
+  ];
+
+  return (
+    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+
+      {/* TOP BAR */}
+      <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+
+        {/* LOGO */}
+        <Link href="/" onClick={closeAll} className="flex items-center gap-3">
+          <Image
+            src="/images/hero/Logo/glanz_facility_services_logo-removebg-preview.png"
+            alt="Glanz Facility Services"
+            width={60}
+            height={60}
+          />
+          <div>
+            <p className="text-lg font-bold text-slate-900">
+              Glanz Facility Services Ltd
+            </p>
+            <p className="text-xs text-slate-500">
+              Cleaning & Surface Restoration Experts
+            </p>
+          </div>
+        </Link>
+
+        {/* DESKTOP MENU */}
+        <nav className="hidden md:flex items-center gap-8 font-medium text-slate-800">
+
+          <Link href="/">Home</Link>
+
+          {/* CLEANING */}
+          <div className="relative">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleMenu("cleaning");
+              }}
+              className="flex items-center gap-1 hover:text-blue-600"
+            >
+              Cleaning <span className="text-xs">▼</span>
+            </button>
+
+            {activeMenu === "cleaning" && (
+              <div className="absolute top-8 left-0 w-72 bg-white border border-slate-200 rounded-xl shadow-xl p-2 z-50">
+                {cleaningLinks.map((l) => (
+                  <Link
+                    key={l.name}
+                    href={l.href}
+                    onClick={closeAll}
+                    className="block px-4 py-2 text-sm hover:bg-blue-50 rounded-lg"
+                  >
+                    {l.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* FUMIGATION */}
+          <div className="relative">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleMenu("fumigation");
+              }}
+              className="flex items-center gap-1 hover:text-blue-600"
+            >
+              Fumigation <span className="text-xs">▼</span>
+            </button>
+
+            {activeMenu === "fumigation" && (
+              <div className="absolute top-8 left-0 w-72 bg-white border border-slate-200 rounded-xl shadow-xl p-2 z-50">
+                {fumigationLinks.map((l) => (
+                  <Link
+                    key={l.name}
+                    href={l.href}
+                    onClick={closeAll}
+                    className="block px-4 py-2 text-sm hover:bg-blue-50 rounded-lg"
+                  >
+                    {l.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* RENOVATION */}
+          <div className="relative">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleMenu("renovation");
+              }}
+              className="flex items-center gap-1 hover:text-blue-600"
+            >
+              Renovation <span className="text-xs">▼</span>
+            </button>
+
+            {activeMenu === "renovation" && (
+              <div className="absolute top-8 left-0 w-72 bg-white border border-slate-200 rounded-xl shadow-xl p-2 z-50">
+                {renovationLinks.map((l) => (
+                  <Link
+                    key={l.name}
+                    href={l.href}
+                    onClick={closeAll}
+                    className="block px-4 py-2 text-sm hover:bg-blue-50 rounded-lg"
+                  >
+                    {l.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <Link href="/blog">Blog</Link>
+          <Link href="/gallery">Gallery</Link>
+          <Link href="/contact">Contact</Link>
+        </nav>
+
+        {/* CTA */}
+        <a
+          href="https://wa.me/254759993502"
+          className="hidden md:block bg-green-500 text-white px-4 py-2 rounded-xl"
+        >
+          WhatsApp
+        </a>
+
+        {/* MOBILE BUTTON */}
+        <button
+          className="md:hidden text-3xl"
+          onClick={() => setMobileOpen(true)}
+        >
+          ☰
+        </button>
+      </div>
+
+      {/* OVERLAY (APPLE STYLE BLUR) */}
+      {mobileOpen && (
+  <div className="md:hidden bg-white border-t border-gray-200 px-4 py-4 space-y-3 z-[9999]">
+      )
+
+      {/* MOBILE DRAWER (APPLE STYLE) */}
+      <div
+        className={`fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white border-l border-slate-200 z-[9999] shadow-2xl transform transition-transform duration-300 ${
+          mobileOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="p-5 space-y-4 text-slate-800 font-medium">
+
+          {/* HEADER */}
+          <div className="flex justify-between items-center border-b pb-3">
+            <span className="font-semibold text-lg">Menu</span>
+            <button onClick={closeAll} className="text-xl">✕</button>
+          </div>
+
+          <Link href="/" onClick={closeAll} className="block py-2">
+            Home
           </Link>
 
-          {/* Desktop Menu */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-
-            <Link href="/" className="text-gray-700 hover:text-black">
-              Home
-            </Link>
-
-            {/* Cleaning */}
-            <div className="relative">
-              <button
-                onClick={() => toggleDropdown("cleaning")}
-                className="text-gray-700 hover:text-black"
-              >
-                Cleaning ▼
-              </button>
-
-              {openDropdown === "cleaning" && (
-                <div className="absolute top-8 left-0 bg-white shadow-lg rounded-xl p-3 w-52 border">
-                  <Link href="/cleaning/house" className="block py-2 px-2 rounded hover:bg-gray-100">
-                    House Cleaning
-                  </Link>
-                  <Link href="/cleaning/deep" className="block py-2 px-2 rounded hover:bg-gray-100">
-                    Deep Cleaning
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            {/* Fumigation */}
-            <div className="relative">
-              <button
-                onClick={() => toggleDropdown("fumigation")}
-                className="text-gray-700 hover:text-black"
-              >
-                Fumigation ▼
-              </button>
-
-              {openDropdown === "fumigation" && (
-                <div className="absolute top-8 left-0 bg-white shadow-lg rounded-xl p-3 w-52 border">
-                  <Link href="/fumigation/home" className="block py-2 px-2 rounded hover:bg-gray-100">
-                    Home Fumigation
-                  </Link>
-                  <Link href="/fumigation/commercial" className="block py-2 px-2 rounded hover:bg-gray-100">
-                    Commercial Fumigation
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            {/* Renovation */}
-            <div className="relative">
-              <button
-                onClick={() => toggleDropdown("renovation")}
-                className="text-gray-700 hover:text-black"
-              >
-                Renovation ▼
-              </button>
-
-              {openDropdown === "renovation" && (
-                <div className="absolute top-8 left-0 bg-white shadow-lg rounded-xl p-3 w-52 border">
-                  <Link href="/renovation/cabro" className="block py-2 px-2 rounded hover:bg-gray-100">
-                    Cabro Installation
-                  </Link>
-                  <Link href="/renovation/painting" className="block py-2 px-2 rounded hover:bg-gray-100">
-                    House Painting
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            <Link href="/blog" className="text-gray-700 hover:text-black">
-              Blog
-            </Link>
-
-            <Link href="/gallery" className="text-gray-700 hover:text-black">
-              Gallery
-            </Link>
-
-            <Link href="/contact" className="text-gray-700 hover:text-black">
-              Contact
-            </Link>
-
-            <a
-              href="https://wa.me/254711628595"
-              className="bg-green-500 text-white px-4 py-2 rounded-full text-sm hover:bg-green-600"
-            >
-              WhatsApp
-            </a>
-          </nav>
-
-          {/* Mobile Button */}
+          {/* CLEANING */}
           <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden text-2xl"
+            onClick={() => toggleMenu("cleaning")}
+            className="w-full flex justify-between py-2"
           >
-            ☰
+            Cleaning <span>▼</span>
           </button>
+
+          {activeMenu === "cleaning" && (
+            <div className="grid gap-2">
+              {cleaningLinks.map((l) => (
+                <Link
+                  key={l.name}
+                  href={l.href}
+                  onClick={closeAll}
+                  className="border border-slate-100 rounded-xl px-4 py-3 bg-slate-50"
+                >
+                  {l.name}
+                </Link>
+              ))}
+            </div>
+          )}
+
+          {/* FUMIGATION */}
+          <button
+            onClick={() => toggleMenu("fumigation")}
+            className="w-full flex justify-between py-2"
+          >
+            Fumigation <span>▼</span>
+          </button>
+
+          {activeMenu === "fumigation" && (
+            <div className="grid gap-2">
+              {fumigationLinks.map((l) => (
+                <Link
+                  key={l.name}
+                  href={l.href}
+                  onClick={closeAll}
+                  className="border border-slate-100 rounded-xl px-4 py-3 bg-slate-50"
+                >
+                  {l.name}
+                </Link>
+              ))}
+            </div>
+          )}
+
+          {/* RENOVATION */}
+          <button
+            onClick={() => toggleMenu("renovation")}
+            className="w-full flex justify-between py-2"
+          >
+            Renovation <span>▼</span>
+          </button>
+
+          {activeMenu === "renovation" && (
+            <div className="grid gap-2">
+              {renovationLinks.map((l) => (
+                <Link
+                  key={l.name}
+                  href={l.href}
+                  onClick={closeAll}
+                  className="border border-slate-100 rounded-xl px-4 py-3 bg-slate-50"
+                >
+                  {l.name}
+                </Link>
+              ))}
+            </div>
+          )}
+
+          <Link href="/blog" onClick={closeAll} className="block py-2">
+            Blog
+          </Link>
+
+          <Link href="/gallery" onClick={closeAll} className="block py-2">
+            Gallery
+          </Link>
+
+          <Link href="/contact" onClick={closeAll} className="block py-2">
+            Contact
+          </Link>
+
+          <a
+            href="https://wa.me/254759993502"
+            className="block bg-green-500 text-white text-center py-3 rounded-xl mt-4"
+          >
+            WhatsApp
+          </a>
+
         </div>
-
-        {/* MOBILE MENU */}
-        {mobileOpen && (
-          <div className="md:hidden bg-gray-100/95 backdrop-blur-xl border-t border-gray-200 px-4 py-5 space-y-4 z-[9999] shadow-xl">
-
-            <Link href="/" className="block text-gray-800">Home</Link>
-
-            {/* Cleaning */}
-            <button
-              onClick={() => toggleDropdown("m-cleaning")}
-              className="block w-full text-left text-gray-800"
-            >
-              Cleaning ▼
-            </button>
-            {openDropdown === "m-cleaning" && (
-              <div className="pl-4 space-y-2">
-                <Link href="/cleaning/house" className="block">House Cleaning</Link>
-                <Link href="/cleaning/deep" className="block">Deep Cleaning</Link>
-              </div>
-            )}
-
-            {/* Fumigation */}
-            <button
-              onClick={() => toggleDropdown("m-fumigation")}
-              className="block w-full text-left text-gray-800"
-            >
-              Fumigation ▼
-            </button>
-            {openDropdown === "m-fumigation" && (
-              <div className="pl-4 space-y-2">
-                <Link href="/fumigation/home" className="block">Home Fumigation</Link>
-                <Link href="/fumigation/commercial" className="block">Commercial Fumigation</Link>
-              </div>
-            )}
-
-            {/* Renovation */}
-            <button
-              onClick={() => toggleDropdown("m-renovation")}
-              className="block w-full text-left text-gray-800"
-            >
-              Renovation ▼
-            </button>
-            {openDropdown === "m-renovation" && (
-              <div className="pl-4 space-y-2">
-                <Link href="/renovation/cabro" className="block">Cabro Installation</Link>
-                <Link href="/renovation/painting" className="block">House Painting</Link>
-              </div>
-            )}
-
-            <Link href="/blog" className="block">Blog</Link>
-            <Link href="/gallery" className="block">Gallery</Link>
-            <Link href="/contact" className="block">Contact</Link>
-
-            <a
-              href="https://wa.me/254711628595"
-              className="block bg-green-500 text-white text-center py-2 rounded-full"
-            >
-              WhatsApp
-            </a>
-          </div>
-        )}
       </div>
     </header>
   );
