@@ -292,10 +292,17 @@ export default function Navbar() {
               ))}
             </div>
           )}
-
-          <Link href="/blog" onClick={closeAll}>Blog</Link>
-          <Link href="/gallery" onClick={closeAll}>Gallery</Link>
-          <Link href="/contact" onClick={closeAll}>Contact</Link>
+<div className="flex flex-col border-t pt-3 gap-2">
+  <Link href="/blog" onClick={closeAll} className="block py-2">
+    Blog
+  </Link>
+  <Link href="/gallery" onClick={closeAll} className="block py-2">
+    Gallery
+  </Link>
+  <Link href="/contact" onClick={closeAll} className="block py-2">
+    Contact
+  </Link>
+</div>
 
           <a
             href="https://wa.me/254759993502"
