@@ -114,8 +114,8 @@ export default function SofaCleaningPage() {
               We serve Nairobi, Kiambu, Ruiru, Thika and surrounding areas.
             </p>
 
-            {/* FIXED COMPONENT */}
-            <SeoLinks current="sofa-cleaning" />
+            {/* ✅ FIXED */}
+            <SeoLinks current="sofa-cleaning" type="service" />
           </div>
         </section>
 
