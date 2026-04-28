@@ -72,12 +72,10 @@ export default function Footer() {
           <div className="mt-4 space-y-2 text-sm text-slate-300">
             <p><a href="/about" className="hover:text-white">About</a></p>
             <p><a href="/services" className="hover:text-white">Services</a></p>
+            <p><a href="/areas-we-serve" className="hover:text-white">Areas We Serve</a></p>
             <p><a href="/contact" className="hover:text-white">Contact</a></p>
             <p>
-              <a
-                href="https://wa.me/254759993502"
-                className="hover:text-white"
-              >
+              <a href="https://wa.me/254759993502" className="hover:text-white">
                 WhatsApp Us
               </a>
             </p>
@@ -122,6 +120,28 @@ export default function Footer() {
           </div>
         </div>
 
+      </div>
+
+      {/* 🔥 NEW SEO SECTION */}
+      <div className="border-t border-slate-800">
+        <div className="mx-auto max-w-7xl px-6 py-8 text-sm text-slate-300">
+
+          <h4 className="text-white font-semibold mb-3">
+            Areas We Serve
+          </h4>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+            <a href="/areas-we-serve" className="hover:text-white">Nairobi</a>
+            <a href="/areas-we-serve" className="hover:text-white">Kiambu</a>
+            <a href="/areas-we-serve" className="hover:text-white">Thika Road</a>
+            <a href="/areas-we-serve" className="hover:text-white">Ruiru</a>
+            <a href="/areas-we-serve" className="hover:text-white">Kilimani</a>
+            <a href="/areas-we-serve" className="hover:text-white">Westlands</a>
+            <a href="/areas-we-serve" className="hover:text-white">Kahawa West</a>
+            <a href="/areas-we-serve" className="hover:text-white">Zimmerman</a>
+          </div>
+
+        </div>
       </div>
 
       {/* BOTTOM BAR */}

@@ -1,36 +1,56 @@
-import { Suspense } from "react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import WhatsappFloat from "@/components/WhatsappFloat";
-import QuoteClient from "./QuoteClient";
+import type { MetadataRoute } from "next";
 
-export default function GetQuotePage() {
-  return (
-    <>
-      <Navbar />
+export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = "https://www.glanzkenya.co.ke";
 
-      <main className="bg-white text-slate-900">
-        <section className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+  const services = [
+    "sofa-cleaning",
+    "house-cleaning",
+    "carpet-cleaning",
+    "fumigation",
+    "mattress-cleaning",
+    "cabro-cleaning",
+    "post-construction-cleaning",
+    "window-cleaning",
+  ];
 
-          <div className="text-center">
-            <h1 className="text-4xl font-bold">
-              Get a Fast Cleaning Quote
-            </h1>
-            <p className="mt-3 text-slate-600">
-              Fill in your details and receive instant pricing on WhatsApp
-            </p>
-          </div>
+  const towns = [
+    "nairobi",
+    "kiambu",
+    "thika",
+    "ruiru",
+    "juja",
+    "westlands",
+    "kilimani",
+    "kasarani",
+    "kahawa-west",
+    "zimmerman",
+    "githurai",
+  ];
 
-          {/* ✅ FIX HERE */}
-          <Suspense fallback={<p className="mt-10">Loading form...</p>}>
-            <QuoteClient />
-          </Suspense>
+  const urls: MetadataRoute.Sitemap = [];
 
-        </section>
-      </main>
+  // base pages
+  urls.push({
+    url: baseUrl,
+    lastModified: new Date(),
+  });
 
-      <WhatsappFloat />
-      <Footer />
-    </>
-  );
+  // service pages
+  services.forEach((service) => {
+    urls.push({
+      url: `${baseUrl}/services/${service}`,
+      lastModified: new Date(),
+    });
+
+    // 🔥 service × town pages
+    towns.forEach((town) => {
+      urls.push({
+        url: `${baseUrl}/services/${service}/${town}`,
+        lastModified: new Date(),
+      });
+    });
+  });
+
+  return urls;
 }

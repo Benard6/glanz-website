@@ -1,0 +1,21 @@
+export const services = [
+  "house-cleaning",
+  "post-construction-cleaning",
+  "fumigation",
+  "cabro-cleaning",
+  "cabro-installation",
+  "cabro-repainting",
+];export const towns = [
+  "nairobi",
+  "westlands",
+  "kilimani",
+  "kileleshwa",
+  "lavington",
+  "kasarani",
+  "mombasa road",
+  "waiyaki way",
+  "ruiru",
+  "thika",
+  "juja",
+  "kiambu",
+];

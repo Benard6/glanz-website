@@ -27,11 +27,23 @@ export default function HomePage() {
     { title: "Office Cleaning", link: "/commercial/office-cleaning" },
     { title: "Janitorial Cleaning", link: "/commercial/janitorial-cleaning" },
     { title: "Fumigation Services", link: "/fumigation" },
-
-    // ✅ NEW: RENOVATION CATEGORY
     { title: "Cabro Installation", link: "/renovation/cabro-installation" },
     { title: "Cabro Repainting", link: "/renovation/cabro-repainting" },
     { title: "House Painting", link: "/renovation/house-painting" },
+  ];
+
+  // ✅ ONLY NEW ADDITION
+  const areas = [
+    "Roysambu",
+    "Kahawa West",
+    "Zimmerman",
+    "Githurai",
+    "Ruiru",
+    "Juja",
+    "Kilimani",
+    "Westlands",
+    "Kasarani",
+    "Kiambu",
   ];
 
   return (
@@ -169,6 +181,8 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* ✅ ONLY ADDED SECTION: AREAS WE SERVE */}
+      
       </main>
 
       <WhatsappFloat />
