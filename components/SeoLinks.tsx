@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 type Props = {
-  type: "service" | "location";
   current: string;
+  type?: "service" | "location"; // ✅ now optional (fixes your build error)
 };
 
 const services = [
@@ -36,46 +36,56 @@ const locations = [
   "kiambu",
 ];
 
-export default function SeoLinks({ type, current }: Props) {
+export default function SeoLinks({ type = "service", current }: Props) {
+  // ✅ SERVICE → show locations
   if (type === "service") {
     return (
-      <div className="mt-10">
-        <h3 className="font-semibold text-lg mb-3">
-          This service is available in:
+      <div className="mt-12 border-t pt-8">
+
+        <h3 className="text-xl font-semibold text-slate-900 mb-4">
+          Available in these areas
         </h3>
 
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+
           {locations.map((loc) => (
             <Link
               key={loc}
               href={`/services/${current}/${loc}`}
-              className="border p-2 text-sm rounded hover:bg-black hover:text-white text-center"
+              className="text-center text-sm border rounded-xl px-3 py-2 bg-slate-50 hover:bg-black hover:text-white transition capitalize"
             >
               {loc.replace(/-/g, " ")}
             </Link>
           ))}
+
         </div>
+
       </div>
     );
   }
 
+  // ✅ LOCATION → show services
   return (
-    <div className="mt-10">
-      <h3 className="font-semibold text-lg mb-3">
-        Services available in this area:
+    <div className="mt-12 border-t pt-8">
+
+      <h3 className="text-xl font-semibold text-slate-900 mb-4">
+        Services available in this area
       </h3>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+
         {services.map((service) => (
           <Link
             key={service}
             href={`/services/${service}/${current}`}
-            className="border p-2 text-sm rounded hover:bg-black hover:text-white text-center"
+            className="text-center text-sm border rounded-xl px-3 py-2 bg-slate-50 hover:bg-black hover:text-white transition capitalize"
           >
             {service.replace(/-/g, " ")}
           </Link>
         ))}
+
       </div>
+
     </div>
   );
 }
