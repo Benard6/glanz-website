@@ -3,22 +3,33 @@ import Link from "next/link";
 
 type Props = {
   params: {
-    town: string;
+    town?: string;
   };
 };
 
+// ✅ FIX: safe metadata (prevents build crash)
 export async function generateMetadata({ params }: Props) {
-  const town = params.town.replace(/-/g, " ");
+  const town = params?.town;
+
+  if (!town) {
+    return {
+      title: "Locations | Glanz Facility Services",
+      description: "Professional cleaning services across Kenya.",
+    };
+  }
+
+  const formattedTown = town.replace(/-/g, " ");
 
   return {
-    title: `Cleaning Services in ${town} | Glanz Facility Services`,
-    description: `Professional cleaning, fumigation, cabro cleaning and renovation services in ${town}. Trusted experts for homes and businesses.`,
+    title: `Cleaning Services in ${formattedTown} | Glanz Facility Services`,
+    description: `Professional cleaning, fumigation, cabro cleaning and renovation services in ${formattedTown}.`,
   };
 }
 
 export default function LocationPage({ params }: Props) {
-  const { town } = params;
+  const town = params?.town;
 
+  // ✅ BLOCK INVALID ROUTES (VERY IMPORTANT)
   if (!town) return notFound();
 
   const formattedTown = town.replace(/-/g, " ");
@@ -38,16 +49,14 @@ export default function LocationPage({ params }: Props) {
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
 
-      {/* HERO SEO SECTION */}
+      {/* HERO */}
       <h1 className="text-3xl md:text-4xl font-bold mb-4">
         Cleaning Services in {formattedTown}
       </h1>
 
       <p className="text-gray-600 mb-6 max-w-3xl">
         Glanz Facility Services provides professional cleaning, fumigation,
-        and renovation services in {formattedTown}. We serve homes,
-        apartments, offices, and commercial buildings with high-quality,
-        affordable cleaning solutions.
+        and renovation services in {formattedTown}.
       </p>
 
       {/* WHY CHOOSE US */}
@@ -57,13 +66,13 @@ export default function LocationPage({ params }: Props) {
 
       <ul className="list-disc pl-5 text-gray-700 space-y-2 mb-10">
         <li>Fast response within {formattedTown}</li>
-        <li>Affordable pricing with no hidden charges</li>
-        <li>Trained cleaning professionals</li>
-        <li>Modern cleaning equipment & eco-friendly products</li>
-        <li>Trusted by homeowners and businesses</li>
+        <li>Affordable pricing</li>
+        <li>Trained professionals</li>
+        <li>Eco-friendly cleaning products</li>
+        <li>Trusted across Kenya</li>
       </ul>
 
-      {/* SERVICES GRID */}
+      {/* SERVICES */}
       <h2 className="text-2xl font-semibold mb-4">
         Our Cleaning Services in {formattedTown}
       </h2>
@@ -80,33 +89,6 @@ export default function LocationPage({ params }: Props) {
         ))}
       </div>
 
-      {/* INTERNAL SEO BOOST (IMPORTANT ADDITION) */}
-      <div className="mt-12">
-        <h3 className="text-xl font-semibold mb-3">
-          Popular Nearby Areas We Also Serve
-        </h3>
-
-        <div className="flex flex-wrap gap-2 text-sm">
-          {[
-            "Roysambu",
-             "thika",
-            "kiambu",
-            "syokimau",
-            "muthaiga",
-            "Ruiru",
-            "Kasarani",
-          ].map((loc) => (
-            <Link
-              key={loc}
-              href={`/locations/${loc.toLowerCase().replace(/ /g, "-")}`}
-              className="border px-3 py-1 rounded hover:bg-black hover:text-white"
-            >
-              {loc}
-            </Link>
-          ))}
-        </div>
-      </div>
-
       {/* CTA */}
       <div className="mt-12 p-6 bg-black text-white rounded-2xl">
         <h3 className="text-xl font-semibold mb-2">
@@ -115,7 +97,6 @@ export default function LocationPage({ params }: Props) {
 
         <p className="mb-4">
           Get fast, reliable cleaning services in {formattedTown} today.
-          Contact Glanz Facility Services now.
         </p>
 
         <a
