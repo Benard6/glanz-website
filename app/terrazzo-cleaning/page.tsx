@@ -27,8 +27,8 @@ export default function TerrazzoCleaningPage() {
   const media = [
     { type: "image", src: "/images/hero/terrazzo-cleaning/1.jpg" },
     { type: "image", src: "/images/hero/terrazzo-cleaning/2.jpg" },
-    { type: "image", src: "/images/hero/terrazzo-cleaning/3.jpg" },
-    { type: "video", src: "/images/hero/terrazzo-cleaning/3.mp4" },
+  
+
     { type: "image", src: "/images/hero/terrazzo-cleaning/4.jpg" },
     { type: "image", src: "/images/hero/terrazzo-cleaning/5.jpg" },
   ];
