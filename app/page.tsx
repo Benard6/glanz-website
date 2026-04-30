@@ -5,11 +5,33 @@ import WhatsappFloat from "../components/WhatsappFloat";
 import Script from "next/script";
 
 export const metadata = {
-  title: "Glanz Facility Services | Cleaning & Renovation Services in Nairobi Kenya",
+  title:
+    "Glanz Facility Services | Cleaning & Renovation Services in Nairobi Kenya",
   description:
     "Professional cleaning and renovation services in Nairobi including sofa cleaning, carpet cleaning, house cleaning, cabro installation, cabro repainting, house painting, and fumigation services across Kenya.",
   keywords:
     "cleaning services Nairobi, renovation services Nairobi, cabro installation Kenya, house painting Nairobi, sofa cleaning Kenya, carpet cleaning Nairobi, fumigation services Kenya",
+
+  openGraph: {
+    title: "Glanz Facility Services",
+    description: "Professional cleaning & renovation services in Kenya",
+    url: "https://www.glanzkenya.co.ke",
+    siteName: "Glanz Facility Services",
+    images: [
+      {
+        url: "/images/hero/Profile/2.jpg",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Glanz Facility Services",
+    description: "Cleaning & renovation services in Kenya",
+  },
 };
 
 export default function HomePage() {
@@ -17,22 +39,33 @@ export default function HomePage() {
     { title: "Sofa Cleaning", link: "/services/sofa-cleaning" },
     { title: "House Cleaning", link: "/services/house-cleaning" },
     { title: "Cabro Cleaning", link: "/services/cabro-cleaning" },
-    { title: "Carpet Cleaning", link: "/carpet-cleaning" },
-    { title: "Vehicle Interior Cleaning", link: "/vehicle-interior-cleaning" },
-    { title: "Terrazzo Cleaning", link: "/terrazzo-cleaning" },
-    { title: "Window Cleaning", link: "/window-cleaning" },
-    { title: "Tile Cleaning", link: "/tile-cleaning" },
+    { title: "Carpet Cleaning", link: "/services/carpet-cleaning" },
+    {
+      title: "Vehicle Interior Cleaning",
+      link: "/services/vehicle-interior-cleaning",
+    },
+    { title: "Terrazzo Cleaning", link: "/services/terrazzo-cleaning" },
+    { title: "Window Cleaning", link: "/services/window-cleaning" },
+    { title: "Tile Cleaning", link: "/services/tile-cleaning" },
     { title: "Mattress Cleaning", link: "/services/mattress-cleaning" },
-    { title: "Post Construction Cleaning", link: "/post-construction-cleaning" },
+    {
+      title: "Post Construction Cleaning",
+      link: "/services/post-construction-cleaning",
+    },
     { title: "Office Cleaning", link: "/commercial/office-cleaning" },
     { title: "Janitorial Cleaning", link: "/commercial/janitorial-cleaning" },
-    { title: "Fumigation Services", link: "/fumigation" },
-    { title: "Cabro Installation", link: "/renovation/cabro-installation" },
-    { title: "Cabro Repainting", link: "/renovation/cabro-repainting" },
+    { title: "Fumigation Services", link: "/services/fumigation" },
+    {
+      title: "Cabro Installation",
+      link: "/renovation/cabro-installation",
+    },
+    {
+      title: "Cabro Repainting",
+      link: "/renovation/cabro-repainting",
+    },
     { title: "House Painting", link: "/renovation/house-painting" },
   ];
 
-  // ✅ ONLY NEW ADDITION
   const areas = [
     "Roysambu",
     "Kahawa West",
@@ -64,7 +97,7 @@ export default function HomePage() {
             image:
               "https://www.glanzkenya.co.ke/images/hero/Profile/2.jpg",
             description:
-              "Professional cleaning and renovation services in Nairobi including cabro installation, cabro repainting, house painting, and deep cleaning services.",
+              "Professional cleaning and renovation services in Nairobi Kenya.",
             telephone: "+254759993502",
             email: "info@glanzkenya.co.ke",
             address: {
@@ -72,7 +105,13 @@ export default function HomePage() {
               addressLocality: "Nairobi",
               addressCountry: "KE",
             },
-            areaServed: ["Nairobi", "Kiambu", "Thika", "Ruiru", "Kahawa"],
+            areaServed: [
+              "Nairobi",
+              "Kiambu",
+              "Thika",
+              "Ruiru",
+              "Kahawa",
+            ],
             sameAs: [
               "https://www.facebook.com/profile.php?id=61562113449202",
               "https://www.instagram.com/glanzkenya",
@@ -97,9 +136,8 @@ export default function HomePage() {
               </h1>
 
               <p className="mt-6 max-w-2xl text-lg text-slate-600">
-                We provide professional cleaning and renovation solutions including
-                cabro installation, cabro repainting, house painting, and deep cleaning
-                for homes, offices, and commercial spaces.
+                Professional cleaning and renovation services including cabro installation,
+                repainting, house painting, fumigation, sofa cleaning, and deep cleaning.
               </p>
 
               <div className="mt-8 flex gap-4">
@@ -133,25 +171,41 @@ export default function HomePage() {
         </section>
 
         {/* FEATURED */}
-        <section className="bg-white py-16">
+        <section className="py-16">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
 
-            <h2 className="text-3xl font-bold">
-              Featured Projects
-            </h2>
+            <h2 className="text-3xl font-bold">Featured Projects</h2>
 
             <div className="mt-10 grid gap-6 md:grid-cols-3">
 
               <div className="relative h-64 w-full">
-                <Image src="/images/hero/cabro-cleaning/1.jpg" alt="Cabro cleaning Nairobi" fill className="rounded-2xl object-cover" />
+                <Image
+                  src="/images/hero/cabro-cleaning/1.jpg"
+                  alt="Cabro cleaning Nairobi"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="rounded-2xl object-cover"
+                />
               </div>
 
               <div className="relative h-64 w-full">
-                <Image src="/images/hero/cabro-cleaning/7.jpg" alt="Cabro repainting Kenya" fill className="rounded-2xl object-cover" />
+                <Image
+                  src="/images/hero/cabro-cleaning/7.jpg"
+                  alt="Cabro repainting Kenya"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="rounded-2xl object-cover"
+                />
               </div>
 
               <div className="relative h-64 w-full">
-                <Image src="/images/hero/tile-cleaning/1.jpg" alt="Tile cleaning Nairobi" fill className="rounded-2xl object-cover" />
+                <Image
+                  src="/images/hero/tile-cleaning/1.jpg"
+                  alt="Tile cleaning Nairobi"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="rounded-2xl object-cover"
+                />
               </div>
 
             </div>
@@ -181,8 +235,28 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ✅ ONLY ADDED SECTION: AREAS WE SERVE */}
-      
+        {/* AREAS */}
+        <section className="bg-white py-16">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+
+            <h2 className="text-3xl font-bold">
+              Areas We Serve in Nairobi & Kiambu
+            </h2>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              {areas.map((area) => (
+                <span
+                  key={area}
+                  className="rounded-full border px-4 py-2 text-sm text-slate-700"
+                >
+                  {area}
+                </span>
+              ))}
+            </div>
+
+          </div>
+        </section>
+
       </main>
 
       <WhatsappFloat />
