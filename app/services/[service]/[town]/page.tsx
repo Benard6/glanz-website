@@ -1,15 +1,47 @@
 import { notFound } from "next/navigation";
 
 type Props = {
-  params: Promise<{
-    service: string;
-    town: string;
-  }>;
+  params: {
+    service?: string;
+    town?: string;
+  };
 };
 
-export default async function ServiceTownPage({ params }: Props) {
-  const { service, town } = await params;
+// ✅ Optional but recommended for SEO & build stability
+export function generateStaticParams() {
+  return [
+    { service: "sofa-cleaning", town: "roysambu" },
+    { service: "sofa-cleaning", town: "kahawa-west" },
+    { service: "mattress-cleaning", town: "ruiru" },
+    { service: "cabro-cleaning", town: "thika" },
+    { service: "house-cleaning", town: "kiambu" },
+  ];
+}
 
+// ✅ Fix metadata crash
+export async function generateMetadata({ params }: Props) {
+  const { service, town } = params;
+
+  if (!service || !town) {
+    return {
+      title: "Cleaning Services | Glanz Facility Services",
+      description: "Professional cleaning services across Nairobi and Kiambu.",
+    };
+  }
+
+  const formattedService = service.replace(/-/g, " ");
+  const formattedTown = town.replace(/-/g, " ");
+
+  return {
+    title: `${formattedService} in ${formattedTown} | Glanz Facility Services`,
+    description: `Professional ${formattedService} services in ${formattedTown}. Book today with Glanz Facility Services.`,
+  };
+}
+
+export default function ServiceTownPage({ params }: Props) {
+  const { service, town } = params;
+
+  // ✅ Prevent build crash
   if (!service || !town) return notFound();
 
   const formattedService = service.replace(/-/g, " ");
@@ -42,7 +74,7 @@ export default async function ServiceTownPage({ params }: Props) {
         </div>
       </section>
 
-      {/* INTRO SECTION */}
+      {/* INTRO */}
       <section className="py-14">
         <div className="max-w-6xl mx-auto px-6">
 
@@ -51,22 +83,19 @@ export default async function ServiceTownPage({ params }: Props) {
           </h2>
 
           <p className="text-slate-600 leading-7">
-            At Glanz Facility Services, we provide high-quality{" "}
-            {formattedService} in {formattedTown}. Our team uses modern equipment,
-            eco-friendly detergents, and professional techniques to ensure deep
-            cleaning results that last longer.
+            At Glanz Facility Services, we provide high-quality {formattedService} in {formattedTown}. 
+            Our team uses modern equipment, eco-friendly detergents, and professional techniques to ensure deep cleaning results that last longer.
           </p>
 
           <p className="text-slate-600 mt-4 leading-7">
-            Whether it is residential, commercial, or industrial cleaning, we
-            tailor our services to meet your exact needs. Customers in{" "}
-            {formattedTown} trust us for consistent quality and fast response times.
+            Whether residential, commercial, or industrial, we tailor our services to meet your needs. 
+            Customers in {formattedTown} trust us for consistent quality and fast response times.
           </p>
 
         </div>
       </section>
 
-      {/* SERVICES BENEFITS */}
+      {/* BENEFITS */}
       <section className="bg-slate-50 py-14">
         <div className="max-w-6xl mx-auto px-6">
 
@@ -76,36 +105,19 @@ export default async function ServiceTownPage({ params }: Props) {
 
           <div className="grid md:grid-cols-2 gap-4 text-slate-700">
 
-            <div className="bg-white p-5 rounded-xl border">
-              ✔ Experienced cleaning professionals
-            </div>
-
-            <div className="bg-white p-5 rounded-xl border">
-              ✔ Affordable pricing for all budgets
-            </div>
-
-            <div className="bg-white p-5 rounded-xl border">
-              ✔ Fast response within {formattedTown}
-            </div>
-
-            <div className="bg-white p-5 rounded-xl border">
-              ✔ Modern cleaning equipment
-            </div>
-
-            <div className="bg-white p-5 rounded-xl border">
-              ✔ Trusted across Nairobi & Kiambu
-            </div>
-
-            <div className="bg-white p-5 rounded-xl border">
-              ✔ Satisfaction guaranteed results
-            </div>
+            <div className="bg-white p-5 rounded-xl border">✔ Experienced professionals</div>
+            <div className="bg-white p-5 rounded-xl border">✔ Affordable pricing</div>
+            <div className="bg-white p-5 rounded-xl border">✔ Fast response in {formattedTown}</div>
+            <div className="bg-white p-5 rounded-xl border">✔ Modern equipment</div>
+            <div className="bg-white p-5 rounded-xl border">✔ Trusted across Nairobi & Kiambu</div>
+            <div className="bg-white p-5 rounded-xl border">✔ Guaranteed satisfaction</div>
 
           </div>
 
         </div>
       </section>
 
-      {/* WHAT WE OFFER */}
+      {/* SERVICES */}
       <section className="py-14">
         <div className="max-w-6xl mx-auto px-6">
 
@@ -115,17 +127,17 @@ export default async function ServiceTownPage({ params }: Props) {
 
           <ul className="space-y-3 text-slate-600 list-disc pl-6">
             <li>Deep cleaning and stain removal</li>
-            <li>Professional-grade equipment usage</li>
-            <li>Eco-friendly cleaning products</li>
-            <li>Surface restoration and detailing</li>
-            <li>Residential and commercial coverage</li>
-            <li>On-site or scheduled cleaning services</li>
+            <li>Professional-grade equipment</li>
+            <li>Eco-friendly products</li>
+            <li>Surface restoration</li>
+            <li>Residential & commercial services</li>
+            <li>Flexible scheduling</li>
           </ul>
 
         </div>
       </section>
 
-      {/* LOCAL SEO BOOST */}
+      {/* LOCAL SEO */}
       <section className="bg-slate-50 py-14">
         <div className="max-w-6xl mx-auto px-6">
 
@@ -134,15 +146,14 @@ export default async function ServiceTownPage({ params }: Props) {
           </h2>
 
           <p className="text-slate-600">
-            We also serve surrounding areas near {formattedTown}, ensuring fast
-            response times and reliable cleaning services across Nairobi and Kiambu
-            regions.
+            We also serve surrounding areas near {formattedTown}, ensuring fast response 
+            and reliable cleaning services across Nairobi and Kiambu.
           </p>
 
         </div>
       </section>
 
-      {/* CTA FINAL */}
+      {/* CTA */}
       <section className="bg-slate-900 text-white py-16 text-center">
         <div className="max-w-6xl mx-auto px-6">
 
