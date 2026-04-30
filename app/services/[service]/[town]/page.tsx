@@ -27,7 +27,8 @@ export async function generateMetadata({ params }: Props) {
   if (!service || !town) {
     return {
       title: "Cleaning Services in Kenya | Glanz Facility Services",
-      description: "Professional cleaning services across Nairobi, Kiambu and Kenya.",
+      description:
+        "Professional cleaning services across Nairobi, Kiambu and Kenya including sofa cleaning, cabro cleaning, mattress cleaning and fumigation.",
     };
   }
 
@@ -36,7 +37,7 @@ export async function generateMetadata({ params }: Props) {
 
   return {
     title: `${formattedService} in ${formattedTown} | Glanz Facility Services`,
-    description: `Best ${formattedService} in ${formattedTown}. Affordable, professional cleaning services for homes, offices and commercial buildings.`,
+    description: `Best ${formattedService} in ${formattedTown}. Affordable and professional cleaning company in ${formattedTown} offering sofa cleaning, cabro cleaning, mattress cleaning and fumigation services.`,
   };
 }
 
@@ -60,10 +61,12 @@ export default async function ServiceTownPage({ params }: Props) {
           </h1>
 
           <p className="mt-4 text-slate-300 max-w-3xl">
-            Looking for reliable {formattedService} in {formattedTown}?  
-            Glanz Facility Services is a trusted cleaning company offering professional,
-            affordable and high-quality cleaning solutions for homes, apartments, offices,
-            and commercial buildings across Nairobi and Kiambu.
+            Looking for the best {formattedService} in {formattedTown}?  
+            Glanz Facility Services is a professional cleaning company in {formattedTown} offering
+            affordable, reliable and high-quality cleaning services including sofa cleaning, mattress cleaning,
+            cabro cleaning, fumigation and house cleaning across Nairobi and Kiambu.  
+            Many clients searching for <b>best cleaning services in {formattedTown}</b> and
+            <b> professional cleaning company near me</b> trust us for consistent results.
           </p>
 
           <div className="mt-6 flex flex-col sm:flex-row gap-3">
@@ -95,13 +98,16 @@ export default async function ServiceTownPage({ params }: Props) {
 
           <p className="text-slate-600 leading-7">
             At Glanz Facility Services, we specialize in delivering high-quality {formattedService}
-            in {formattedTown}. Our team uses modern equipment, eco-friendly cleaning agents,
-            and industry-standard techniques to ensure deep cleaning and long-lasting results.
+            in {formattedTown}. Our team is known as a <b>reliable cleaning company in Kenya</b>,
+            using modern equipment and eco-friendly cleaning agents to deliver deep cleaning results.
+            Whether you are searching for <b>affordable cleaning services in {formattedTown}</b> or
+            <b> professional cleaners near me</b>, we are ready to help.
           </p>
 
           <p className="text-slate-600 mt-4 leading-7">
-            Whether you are a homeowner, tenant, property manager, or business owner in {formattedTown},
-            we tailor our cleaning services to meet your exact needs.
+            We serve homeowners, tenants, property managers and businesses in {formattedTown}.
+            Our services are also popular for people searching <b>cleaning contractors Kenya</b>,
+            <b> janitorial services Nairobi</b> and <b>top cleaning company in Nairobi</b>.
           </p>
 
         </div>
@@ -138,7 +144,7 @@ export default async function ServiceTownPage({ params }: Props) {
             </div>
 
             <div className="bg-white p-5 rounded-xl border">
-              ✔ Fast response within {formattedTown}
+              ✔ Fast response within {formattedTown} (cleaning near me services)
             </div>
 
           </div>
@@ -156,10 +162,11 @@ export default async function ServiceTownPage({ params }: Props) {
 
           <ul className="list-disc pl-6 space-y-2 text-slate-600">
             <li>Trusted cleaning company in Nairobi & Kiambu</li>
-            <li>Affordable pricing with no hidden charges</li>
-            <li>Experienced and trained cleaning staff</li>
-            <li>Fast response and reliable scheduling</li>
-            <li>Customer satisfaction guaranteed</li>
+            <li>Best cleaning services in {formattedTown}</li>
+            <li>Affordable cleaning services with no hidden charges</li>
+            <li>Professional and trained cleaning staff</li>
+            <li>Reliable cleaning contractors Kenya</li>
+            <li>Fast response and same-day service available</li>
           </ul>
 
         </div>
@@ -176,18 +183,27 @@ export default async function ServiceTownPage({ params }: Props) {
           <div className="space-y-4 text-slate-700">
 
             <div>
-              <h3 className="font-semibold">Do you offer services in {formattedTown}?</h3>
-              <p>Yes, we provide full {formattedService} services across all areas of {formattedTown}.</p>
+              <h3 className="font-semibold">
+                Do you offer {formattedService} in {formattedTown}?
+              </h3>
+              <p>
+                Yes, we are a professional cleaning company offering {formattedService} services in {formattedTown}
+                and nearby areas.
+              </p>
             </div>
 
             <div>
-              <h3 className="font-semibold">How much do you charge?</h3>
-              <p>Pricing depends on size and condition. Contact us for a free quote.</p>
+              <h3 className="font-semibold">Are you the best cleaning company near me?</h3>
+              <p>
+                Many clients searching for best cleaning services near me choose Glanz Facility Services due to reliability and quality.
+              </p>
             </div>
 
             <div>
-              <h3 className="font-semibold">Do you offer same-day service?</h3>
-              <p>Yes, we offer fast response and same-day cleaning in most cases.</p>
+              <h3 className="font-semibold">Do you offer affordable cleaning services?</h3>
+              <p>
+                Yes, we offer affordable cleaning services in Nairobi, Kiambu and {formattedTown}.
+              </p>
             </div>
 
           </div>
@@ -204,7 +220,7 @@ export default async function ServiceTownPage({ params }: Props) {
           </h2>
 
           <p className="mt-4 text-slate-300">
-            Contact Glanz Facility Services today for fast and professional cleaning services.
+            Contact the best cleaning company in {formattedTown} for fast and professional service.
           </p>
 
           <div className="mt-6 space-y-2">

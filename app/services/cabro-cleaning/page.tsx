@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description:
     "Professional cabro cleaning in Nairobi, Kiambu & Thika. We remove red soil stains, black marks, algae, cement residue and restore paving to a clean finish.",
   keywords:
-    "cabro cleaning Nairobi, driveway cleaning Kenya, cabro restoration Nairobi, compound cleaning Kenya, paving block cleaning Nairobi",
+    "cabro cleaning Nairobi, driveway cleaning Kenya, cabro restoration Nairobi, compound cleaning Kenya, paving block cleaning Nairobi, best cabro cleaning Nairobi, professional cabro cleaning company Nairobi",
 };
 
 export default function CabroCleaningPage() {
@@ -67,10 +67,10 @@ export default function CabroCleaningPage() {
           <SectionHeader
             eyebrow="Cabro Cleaning"
             title="Professional Cabro Cleaning & Restoration in Nairobi"
-            description="We clean and restore dirty cabro surfaces for compounds, driveways, parking areas, and commercial spaces."
+            description="We clean and restore dirty cabro surfaces for compounds, driveways, parking areas, and commercial spaces using professional equipment and eco-friendly methods."
           />
 
-          {/* IMAGE GRID (SEO BOOST SECTION) */}
+          {/* IMAGE GRID */}
           <div className="mt-12 grid gap-6 md:grid-cols-3 lg:grid-cols-5">
             {images.map((src, i) => (
               <div
@@ -96,14 +96,21 @@ export default function CabroCleaningPage() {
               <p>
                 We provide professional cabro cleaning services in Nairobi and
                 surrounding areas, restoring dirty and stained paving blocks.
+                Clients often search for <strong>best cabro cleaning Nairobi</strong> and
+                <strong> professional cabro cleaning company</strong> — and that is exactly what we deliver.
               </p>
+
               <p>
                 Our service removes red soil stains, algae, oil marks, cement
-                residue, and deep dirt buildup.
+                residue, and deep dirt buildup. Many customers looking for
+                <strong> affordable cleaning services Nairobi</strong> and
+                <strong> reliable cleaning company Kenya</strong> choose us for consistent results.
               </p>
+
               <p>
                 Ideal for homes, apartments, estates, parking lots, and
-                commercial properties.
+                commercial properties. We are trusted for both residential and
+                <strong> commercial cleaning contractors Kenya</strong> work.
               </p>
             </div>
 
@@ -128,6 +135,34 @@ export default function CabroCleaningPage() {
           rows={pricingRows}
         />
 
+        {/* SEO KEYWORDS SECTION (IMPORTANT FOR GOOGLE) */}
+        <section className="bg-slate-50 py-16">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <h2 className="text-2xl font-bold mb-4">
+              People Search For Cabro Cleaning Services Like This
+            </h2>
+
+            <p className="text-slate-600 mb-6">
+              Our clients find us using different search terms such as:
+            </p>
+
+            <div className="grid md:grid-cols-2 gap-3 text-slate-700">
+              <p>• best cleaning services in Nairobi</p>
+              <p>• best cabro cleaning company near me</p>
+              <p>• professional cabro cleaning Nairobi</p>
+              <p>• affordable cabro cleaning Kenya</p>
+              <p>• cleaning services near me</p>
+              <p>• top cleaning company in Nairobi</p>
+              <p>• reliable cleaning company Kenya</p>
+              <p>• how to clean cabro stains</p>
+              <p>• remove oil stains from cabro</p>
+              <p>• post construction cleaning Nairobi</p>
+              <p>• cleaning contractors Kenya</p>
+              <p>• janitorial services Nairobi</p>
+            </div>
+          </div>
+        </section>
+
         {/* CTA */}
         <section className="bg-slate-900 text-white py-16">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -147,6 +182,7 @@ export default function CabroCleaningPage() {
             </a>
           </div>
         </section>
+
       </main>
 
       <WhatsappFloat />
